@@ -1,0 +1,87 @@
+[
+  
+    {
+      "title"    : "Welcome to my blog!",
+      "title-lower"    : "welcome to my blog!",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "BayesianStatisticsPythonR",
+      "tags"     : "",
+      "url"      : "/bayesian/statistics/python/r/2020/09/17/my-first-one.html",
+      "date"     : "2020-09-17 00:00:00 +0300",
+      "content"     : "So in this post I’m going to assume I know already everything necessary for the bayesian analysis post i’m going to post here soon. It will include examples from both R and Python using rstan, reth..."
+    } ,
+  
+    {
+      "title"    : "Manhattan 2-1-2 betting system",
+      "title-lower"    : "manhattan 2-1-2 betting system",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "casinoroulettebetting2-1-2manhattanstrategy",
+      "tags"     : "",
+      "url"      : "/casino/roulette/betting/2-1-2/manhattan/strategy/2020/08/29/manhattan-2-1-2-betting-strategy.html",
+      "date"     : "2020-08-29 00:00:00 +0300",
+      "content"     : "I’m going to explore an interesting strategy suggested by Aaron Brown on one of his quora posts.At the end of the day any game in the casino is negative EV game (from the bettor side) but there is ..."
+    } ,
+  
+    {
+      "title"    : "Metropolis-Hasting sampling algorithm",
+      "title-lower"    : "metropolis-hasting sampling algorithm",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "StatisticsPythonMCMC",
+      "tags"     : "",
+      "url"      : "/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html",
+      "date"     : "2020-08-27 00:00:00 +0300",
+      "content"     : "MCMC sampling method allow to sample directly from the posterior without the need to know its shape or any other properties. Remember that the definition:\[P( \theta \ | \ data) = \frac{P(data \ | ..."
+    } ,
+  
+    {
+      "title"    : "How good was Real Madrid this season?",
+      "title-lower"    : "how good was real madrid this season?",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "footballReal-MadridBarcelona",
+      "tags"     : "",
+      "url"      : "/football/real-madrid/barcelona/2020/07/29/how-good-is-real-madrid.html",
+      "date"     : "2020-07-29 00:00:00 +0300",
+      "content"     : "This season (2019-20) started well for Barcelona and not so well for Real Madrid. The corona forces the league to a halt at March 20 and the league returned only in June (or July?). From there thin..."
+    } ,
+  
+    {
+      "title"    : "Introduction to Bayesian Analysis",
+      "title-lower"    : "introduction to bayesian analysis",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "BayesianAnalysis",
+      "tags"     : "",
+      "url"      : "/bayesian/analysis/2020/06/19/introduction-to-bayesian-analysis.html",
+      "date"     : "2020-06-19 00:00:00 +0300",
+      "content"     : "Although frequentist analysis is the what taught on most statistics courses I think it worth spending some time trying to understand the bayesian way. I’m not any expert, nor do my knowledge extens..."
+    } ,
+  
+    {
+      "title"    : "Gamma distribution in R",
+      "title-lower"    : "gamma distribution in r",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Rgammaprobability",
+      "tags"     : "",
+      "url"      : "/r/gamma/probability/2020/05/01/gamma-distribution-r.html",
+      "date"     : "2020-05-01 00:00:00 +0300",
+      "content"     : "Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the prob..."
+    } ,
+  
+    {
+      "title"    : "Integrating razorpay into your webapp",
+      "title-lower"    : "integrating razorpay into your webapp",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "JavascriptNodeJS",
+      "tags"     : "",
+      "url"      : "/javascript/nodejs/2019/03/23/welcome-to-jekyll.html",
+      "date"     : "2019-03-23 17:33:36 +0200",
+      "content"     : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ..."
+    } 
+  
+]
