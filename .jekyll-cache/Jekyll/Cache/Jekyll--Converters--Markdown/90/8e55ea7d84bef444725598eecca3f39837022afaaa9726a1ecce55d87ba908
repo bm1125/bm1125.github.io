@@ -1,0 +1,2 @@
+I"$<p>The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarchical) model. The multilevel models are sort of a compromise between independent and dependent clusters. I think one of the advantages of such model is that it allows me to say that I’m not really sure about the relationship between clusters. And it may be that one cluster has some infromative value on another cluster. In my case each cluster represent a team. I will try and make a multilevel model to predict english premier leauge games.</p>
+:ET

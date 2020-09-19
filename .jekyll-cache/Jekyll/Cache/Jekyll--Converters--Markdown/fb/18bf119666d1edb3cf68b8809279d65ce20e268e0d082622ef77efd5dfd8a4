@@ -1,0 +1,34 @@
+I"<p>The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarichal) model. The multilevel models are sort of a compromise between independent clusters and dependent one. I think one of the advantages of such model is that it is like saying that I don’t really know what is the relationship between clusters.</p>
+
+<p>I think the math notation makes it much clearer when seeing it.</p>
+
+\[Goals_{k} \sim Poisson(\lambda) \\ log(\lambda) = attack_{i} + defense_{j} + \alpha_H * home \\
+attack_i \sim Normal(0, 1) \\ defense_j \sim Normal(0, 1) \\ \alpha_H \sim Normal(0,1)\]
+
+<p>Where \(attack_i\) is the attack of team <em>i</em> and \(defense_j\) is the defense of team <em>j</em> .
+If I ran this model, it will try to estimate those parameters for each team independently. A multilevel model is a better fit if you assume there is some dependency between the clusters (teams).
+Here’s the mathematical notation for a multilevel model:</p>
+
+\[Goals_{k} \sim Poisson(\lambda) \\ 
+log(\lambda) = attack_{i} + defense_{j} + \alpha_H * home \\
+attack_i \sim Normal(\mu_H, \sigma_H) \\
+defense_j \sim Normal(\mu_A, \sigma_A) \\ 
+\alpha_H \sim Normal(0,1) \\
+\mu_H, \mu_A \sim Normal(0, 1) \\
+\sigma_H, \sigma_a \sim Exp(1)\]
+
+<p>So basically it’s like I set the attack and defense priors to be more adapative to the whole league.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">	</span><span class="n">map2stan</span><span class="p">(</span><span class="w">
+		</span><span class="n">alist</span><span class="p">(</span><span class="w">
+			</span><span class="n">goals</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dpois</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="w">
+			</span><span class="nf">log</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">a_team</span><span class="p">[</span><span class="n">team</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b_opponent</span><span class="p">[</span><span class="n">opponent</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ah</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">home</span><span class="w">
+			</span><span class="n">a_team</span><span class="p">[</span><span class="n">team</span><span class="p">]</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="n">mu_home</span><span class="p">,</span><span class="w"> </span><span class="n">sigma_home</span><span class="p">)</span><span class="w">
+			</span><span class="n">b_opponent</span><span class="p">[</span><span class="n">opponent</span><span class="p">]</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="n">mu_away</span><span class="p">,</span><span class="w"> </span><span class="n">sigma_away</span><span class="p">)</span><span class="w">
+			</span><span class="n">ah</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+			</span><span class="nf">c</span><span class="p">(</span><span class="n">mu_home</span><span class="p">,</span><span class="w"> </span><span class="n">mu_away</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+			</span><span class="nf">c</span><span class="p">(</span><span class="n">sigma_home</span><span class="p">,</span><span class="w"> </span><span class="n">sigma_away</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dexp</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+		</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">final</span><span class="p">,</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4000</span><span class="p">,</span><span class="w"> </span><span class="n">warmup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span><span class="p">,</span><span class="w"> </span><span class="n">chains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">cores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></code></pre></div></div>
+
+:ET

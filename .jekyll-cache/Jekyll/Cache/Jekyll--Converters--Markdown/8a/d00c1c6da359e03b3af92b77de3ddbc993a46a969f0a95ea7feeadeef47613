@@ -1,0 +1,2 @@
+I"6<p>Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the probability of <em>k-th</em> events to occur in a specific time interval. It’s important to remember, as you will mostly use only the cdf fucntion (As with most continiuous functions), so the question it is answering is, given some rate of events and some events count, what is the probability of observing this amount of events in chosen <strong>T</strong> time?</p>
+:ET

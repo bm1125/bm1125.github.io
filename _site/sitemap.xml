@@ -6,11 +6,11 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2020-09-18T18:49:59+03:00</lastmod>
+	    <lastmod>2020-09-19T15:57:27+03:00</lastmod>
             <priority>1.00</priority>
         </url><url>
-                <loc>http://localhost:4000/bayesian/statistics/python/r/2020/09/17/my-first-one.html</loc>
-                <lastmod>2020-09-17T00:00:00+03:00</lastmod>
+                <loc>http://localhost:4000/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html</loc>
+                <lastmod>2020-09-15T00:00:00+03:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
@@ -29,18 +29,8 @@
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>http://localhost:4000/bayesian/analysis/2020/06/19/introduction-to-bayesian-analysis.html</loc>
-                <lastmod>2020-06-19T00:00:00+03:00</lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>0.80</priority>
-            </url><url>
                 <loc>http://localhost:4000/r/gamma/probability/2020/05/01/gamma-distribution-r.html</loc>
                 <lastmod>2020-05-01T00:00:00+03:00</lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>0.80</priority>
-            </url><url>
-                <loc>http://localhost:4000/javascript/nodejs/2019/03/23/welcome-to-jekyll.html</loc>
-                <lastmod>2019-03-23T17:33:36+02:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url></urlset>
