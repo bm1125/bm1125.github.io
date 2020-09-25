@@ -52,9 +52,9 @@ def metropolis_hasting(N, a_beta, b_beta):
 
         if ratio >= 1 or ratio >= np.random.uniform(0, 1, 1):
             parameters[i] = new_p
+            start_p = new_p
         else:
             parameters[i] = start_p
-        start_p = new_p
         
     return parameters
 
@@ -65,8 +65,8 @@ The good thing about choosing beta prior is that you can actually deduce the pos
 $$ \alpha_{posterior} = \alpha_{prior} + x \ \ \ , \ \ \  \beta_{posterior} = \beta_{prior} + n - x $$
 Where x is the number of success and n is number of trials
 
-Here's my end results
+Here is a comparsion of analytically deduced posterior and the MCMC results
 
-![mcmc metropolis hasting result](/assets/result.png)
+![mcmc metropolis hasting result](/assets/mcmc.png)
 
 
