@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "Zero inflated poisson regression",
+      "title-lower"    : "zero inflated poisson regression",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "pymcpoissonregressionbayesian",
+      "tags"     : "",
+      "url"      : "/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html",
+      "date"     : "2020-09-30 00:00:00 +0300",
+      "content"     : "I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero ..."
+    } ,
+  
+    {
       "title"    : "Predicting premier league with bayesian multilevel model",
       "title-lower"    : "predicting premier league with bayesian multilevel model",
       "sub-titile" : "",

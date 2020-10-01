@@ -19,7 +19,7 @@
 <meta property="og:url" content="http://localhost:4000/" />
 <meta property="og:site_name" content="Personal Notebook" />
 <script type="application/ld+json">
-{"headline":"Personal Notebook","author":{"@type":"Person","name":"Yarden"},"description":"This will serve me as a personal notebook where I’ll write down my own guides for statistics and programming incase I’ll need to refreshen my memory in the future.","url":"http://localhost:4000/","@type":"WebSite","name":"Personal Notebook","@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Yarden"},"description":"This will serve me as a personal notebook where I’ll write down my own guides for statistics and programming incase I’ll need to refreshen my memory in the future.","url":"http://localhost:4000/","@type":"WebSite","headline":"Personal Notebook","name":"Personal Notebook","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
  <!-- for mathjax support -->
@@ -74,7 +74,18 @@
         <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
       </div>
       
-    </li><li><a class="post-link" href="/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html">
+    </li><li><a class="post-link" href="/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html">
+          <h2 class="post-title">Zero inflated poisson regression</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Sep 30, 2020
+          </div><ul class="post-categories"><li>pymc</li><li>poisson</li><li>regression</li><li>bayesian</li></ul></div>
+        <div class="post"><p>I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero counts is more likeliy than suggested by a regular poisson model.
+Lets say I want to model the amount of a goals a football player scores in a match. For the sake of simplicity I’m going to assume that the player is either playing all of the match or isn’t playing at all. The data will probably suggests higher count of zero occurences as sometimes the player will not be playing due to various reasons. So what I need to model is two different processes. One is the probability of a player playing in some match $\ k $, the other is the rate (poisson process) of events.</p>
+</div>
+      </li><li><a class="post-link" href="/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html">
           <h2 class="post-title">Predicting premier league with bayesian multilevel model</h2>
         </a>
         <div class="post-meta">
