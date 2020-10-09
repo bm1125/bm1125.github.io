@@ -1,0 +1,2 @@
+I"k<p>My previous post was about a zero inflated poisson process where an observation of zero counts may be possible due to two different processes. After understanding (hopefully) the idea behind ZIP (zero-inflated poisson) models I wanted to try and see if I could use it to predict the number of goals a specific player is going to score in a specific match.</p>
+:ET

@@ -62,7 +62,7 @@ In order to predict a match I will sample the model parameters from the posterio
 
 ```
 
-Wolve - Draw - Man City:
+Wolves - Draw - Man City:
 
 ```
 	[1] 0.2482303 0.2203352 0.5295773

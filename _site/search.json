@@ -1,6 +1,30 @@
 [
   
     {
+      "title"    : "StockX as indicator for company performance",
+      "title-lower"    : "stockx as indicator for company performance",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "stocksnikeadidasstockx",
+      "tags"     : "",
+      "url"      : "/stocks/nike/adidas/stockx/2020/10/07/stockx-as-indicator.html",
+      "date"     : "2020-10-07 00:00:00 +0300",
+      "content"     : "StockX is the biggest sneakers exchange online (offline too I believe). Many sneakers resellers use this platform to sell limited edition sneakers that they have managed to put their hands on. I ca..."
+    } ,
+  
+    {
+      "title"    : "Using zero-inflated poisson to predict Messi&#39;s goals per game",
+      "title-lower"    : "using zero-inflated poisson to predict messi&#39;s goals per game",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "messifootballlaligapoissonregressionbayesianpymc",
+      "tags"     : "",
+      "url"      : "/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html",
+      "date"     : "2020-10-05 00:00:00 +0300",
+      "content"     : "My previous post was about a zero inflated poisson process where an observation of zero counts may be possible due to two different processes. After understanding (hopefully) the idea behind ZIP (z..."
+    } ,
+  
+    {
       "title"    : "Zero inflated poisson regression",
       "title-lower"    : "zero inflated poisson regression",
       "sub-titile" : "",
