@@ -1,0 +1,115 @@
+I"<p>I wanted to see if there is any relationship between the days of rest (or not actually rest, but days since last match) to the amount of goals a team will score in a game.
+I used the data from football-data.co.uk for the english premier league season 2018-2019.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: left">Date</th>
+      <th style="text-align: left">Team</th>
+      <th style="text-align: right">Goals</th>
+      <th style="text-align: right">Days</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">15</td>
+      <td style="text-align: left">2018-08-18 00:00:00</td>
+      <td style="text-align: left">West Ham</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">14</td>
+      <td style="text-align: left">2018-08-18 00:00:00</td>
+      <td style="text-align: left">Tottenham</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">7</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">13</td>
+      <td style="text-align: left">2018-08-18 00:00:00</td>
+      <td style="text-align: left">Leicester</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">11</td>
+      <td style="text-align: left">2018-08-18 00:00:00</td>
+      <td style="text-align: left">Chelsea</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">7</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">10</td>
+      <td style="text-align: left">2018-08-18 00:00:00</td>
+      <td style="text-align: left">Cardiff</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">7</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">…</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right"> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Where days is the number of days since last match of that specific team.</p>
+
+<p><img src="/assets/rest-days/epl_rest_plot.png" alt="epl-days-of-rest-goals" /></p>
+
+<p>Looking at the data, I personally can not see any clear trend out of it. Decided to run a linear regression anyway. This regression is pretty simple as I only have on independent variable.</p>
+
+\[\text{Goals} \sim Pois(\lambda_i) \\
+\lambda_i = \alpha + \beta * \text{Days} \\
+\alpha \sim N(0, 1) \\
+\beta \sim N(0, 1)\]
+
+<p>Regression summary shows the slope hdi is on both sides of the zero, meaning there is no clear trend.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: right">mean</th>
+      <th style="text-align: right">sd</th>
+      <th style="text-align: right">hdi_3%</th>
+      <th style="text-align: right">hdi_97%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">a</td>
+      <td style="text-align: right">0.375</td>
+      <td style="text-align: right">0.072</td>
+      <td style="text-align: right">0.249</td>
+      <td style="text-align: right">0.518</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">b</td>
+      <td style="text-align: right">-0.004</td>
+      <td style="text-align: right">0.009</td>
+      <td style="text-align: right">-0.02</td>
+      <td style="text-align: right">0.013</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To see it with our own eyes:</p>
+
+<p><img src="/assets/rest-days/reg_results.png" alt="glm-days-goals" /></p>
+
+<p>The dashed line is the estimated mean of all samples for the \(\lambda\) parameter and the lines above and under indicate 95% highest density interval for that parameter.</p>
+
+<p>Problem with this analysis that I included resting days of over 7 days which is probably due to holiday or international break (Nations league, EURO Quanlifiers, WC Qualifiers). I wanted to see if there is any trend within 7 days only. Meaning during regular season, if I eliminate breaks, is there a different if a team is given 6 days of rest or only 3 ? I know I can not just decide to cut my data in half and run regression but I just wanted to peek if there’s any trend at all that worth exploring.</p>
+
+<p><img src="/assets/rest-days/reg_results2.png" alt="glm-days-goals" /></p>
+
+<p>So same as before, no clear direction at all. Wether a team had only three days of resting or seven, it doesn’t seem to affect their ability to score goals at all.</p>
+
+<p>I think what still needs to be checked is more of intensity periods. Maybe a team can play one game only three games after their last game without it affecting their ability, but what if they had to play 3,4,5 games in a period of two weeks or less ? I’ll check that in the future.</p>
+
+:ET

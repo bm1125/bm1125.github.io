@@ -1,4 +1,4 @@
-I"l#<p>I’m going to explore an interesting strategy suggested by Aaron Brown on one of his quora <a href="https://www.quora.com/All-roulette-bets-have-a-negative-expected-value-so-what-do-roulette-systems-aim-to-achieve/answer/Aaron-Brown-165">posts</a>.
+I"G#<p>I’m going to explore an interesting strategy suggested by Aaron Brown on one of his quora <a href="https://www.quora.com/All-roulette-bets-have-a-negative-expected-value-so-what-do-roulette-systems-aim-to-achieve/answer/Aaron-Brown-165">posts</a>.
 At the end of the day any game in the casino is negative EV game (from the bettor side) but there is a way to make things a little bit more interesting.</p>
 
 <p>Aaron suggests the 2-1-2 system. According to his post the system can work in many games where the casino margin isn’t too high and the payout is 2 to 1. The system is pretty simple. You first have to set the total amount of money you are willing to bet on and then divide it by 100. The result is your unit stake.</p>
@@ -83,5 +83,5 @@ At the end of the day any game in the casino is negative EV game (from the betto
 <p><img src="/assets/sim-results.png" alt="manhattan-2-1-2-vs-regular-bets" /></p>
 
 <p>So I guess the average outcome of the non-strategy is actually better, but we can see the heavy tails of the 2-1-2 strategy. Now I think the 2-1-2 strategy biggest advantage is that it is much more exciting than regular betting. Think about adding up to your stake everytime you win compared to having the same stake over and over again.
-Besides, if you are going to the casino you aren’t opting for an average result. You want to go big or go home.</p>
+Besides, if I’m going to the casino I am not opting for an average result.</p>
 :ET

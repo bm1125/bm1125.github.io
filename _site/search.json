@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "Goal scoring ability over number of resting days",
+      "title-lower"    : "goal scoring ability over number of resting days",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "EPLfootballGLM",
+      "tags"     : "",
+      "url"      : "/epl/football/glm/2020/10/10/goals-scoring-and-resting-days.html",
+      "date"     : "2020-10-10 00:00:00 +0300",
+      "content"     : "I wanted to see if there is any relationship between the days of rest (or not actually rest, but days since last match) to the amount of goals a team will score in a game.I used the data from footb..."
+    } ,
+  
+    {
       "title"    : "StockX as indicator for company performance",
       "title-lower"    : "stockx as indicator for company performance",
       "sub-titile" : "",
