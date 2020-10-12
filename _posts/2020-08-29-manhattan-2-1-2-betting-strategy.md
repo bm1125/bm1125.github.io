@@ -91,4 +91,4 @@ Now to the plot of the end results (bankroll balance in unit stakes after the la
 ![manhattan-2-1-2-vs-regular-bets](/assets/sim-results.png)
 
 So I guess the average outcome of the non-strategy is actually better, but we can see the heavy tails of the 2-1-2 strategy. Now I think the 2-1-2 strategy biggest advantage is that it is much more exciting than regular betting. Think about adding up to your stake everytime you win compared to having the same stake over and over again.
-Besides, if you are going to the casino you aren't opting for an average result. You want to go big or go home.
+Besides, if I'm going to the casino I am not opting for an average result.
