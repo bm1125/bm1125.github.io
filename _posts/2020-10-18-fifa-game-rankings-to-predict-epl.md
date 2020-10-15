@@ -1,15 +1,15 @@
 ---
 layout: post
-title: Could FIFA game team rankings predict matches outcome
+title: Could EA FIFA team rankings predict matches outcome?
 usemathjax: true
 categories: [EPL, Deep-Learning, football]
 ---
 
-I actually did this quite a while ago. I just wanted to make more concise and clean notebook so I started afresh. This time I used fixtures data from football-data.co.uk (instead of football-api.org last time). And took the FIFA team rankings (defense, midfield, attack and overall)for each team in english permier league for season 17-20. 
+I actually did this quite a while ago. I just wanted to make more concise and clean notebook so I started afresh. This time I used fixtures data from football-data.co.uk (instead of football-api.org last time). I took the FIFA team rankings (defense, midfield, attack and overall) of each team in the english permier league for the seasons 17-20. 
 
-To do it, I built a web scraper to scrape data from [fifaindex.com](http://fifaindex.com). You have to be careful working with this scraper as the data on fifaindex isn't consistent. Same teams may be named different on different seasons.
+In order to do it, I've built a web scraper to scrape data from [fifaindex.com](http://fifaindex.com). Have to be careful working with this scraper as the data on fifaindex isn't consistent. Same teams may be named differently over seasons.
 
-I tried only to predict outcome (home win, draw, away win) and wanted to compare the probabilities of the model to betting odds probabilities
+I tried to predict match outcome (home win, draw, away win) and wanted to compare the probabilities of the model to betting odds probabilities
 
 |    | Date                | HomeTeam       | AwayTeam     |   FTR |   PSH |   PSD |   PSA |   season |
 |---:|:--------------------|:---------------|:-------------|------:|------:|------:|------:|---------:|
@@ -31,7 +31,7 @@ fifa.scrapeLeagues(13) # See fifa.getAvailableLeagues() to see all possible leag
 
 ```
 
-If everything works fine, you should see output:
+If everything works fine, the output should be:
 
 ```
 scraping:	 https://www.fifaindex.com/teams/fifa18/1/?league=13&;
@@ -39,11 +39,8 @@ scraping:	 https://www.fifaindex.com/teams/fifa19/1/?league=13&;
 scraping:	 https://www.fifaindex.com/teams/fifa20/1/?league=13&;
 ```
 
-and calling 
+calling `fifa.dataframe()`
 
-```python
-fifa.dataframe()
-```
 
 Will show a final dataframe with all teams rankings for each season. The rankings is taken from the beginning of the season. I know I'll have to imporve the scraper to take more rankings throughout the season as rankings move a bit. Althought fow now, I didn't want to spend time on this as the rankings barley move throughout the season. Maybe in the future, I'll improve the scraper to include more features of the teams and more time dependent ranking.
 
@@ -81,7 +78,7 @@ def test_model(epochs, patience):
     return model.evaluate(X_test, y_test)
 ```
 
-I really don't have experience with such model and I actually don't know what parameters to start with. So I just played with it until i've found the best parameters according to the model accuracy. I'm not sure how much emphasis I should place on model accuracy because football games are low scoring games that are much more random than other sports. It's not like a classic classification problem where you have only right answer. All options are possible, home win, draw and away win and my end goal is to create a model that will estimate the probability for each scenario, better than the betting markets.
+I really don't have experience with such models and I actually don't know what parameters to start with. So I just played with it until i've found the best parameters according to the model accuracy. I'm not sure how much emphasis I should place on model accuracy because football games are low scoring games that are much more random than other sports. It's not like a classic classification problem where you have only right answer. All options are possible, home win, draw and away win and my end goal is to create a model that will estimate the probability for each scenario, better than the betting markets.
 
 So at the end I set the model to 2 layers of 8 and 6 nodes each and dropout rate of 0.5 and patience 15.
 
@@ -113,4 +110,8 @@ And finally, to the results
 |...|
 
 
-A csv file with model results is available on my github.
+In order to test the model, I decided to check it against betting odds. In the table above there are three columns; PSH, PSD, PSA which is implied probabilities given by pinnacle odds. Now these were not derived from closing line odds but from midweek (few days before each match). I saved the results dataframe to a csv file and opened it in excel. It's much more exhausing doing it in excel but I wanted to see the model output with my eyes and not just automate everything. I looked at each and every pick the model had. The results were quite surprising to be fair. Total of 114 bets with average odds of 3.784 and 28.5% return! Using [this](https://www.football-data.co.uk/blog/P-value_calculator.xlsx) p value calculator I saw the probability of the model actual being profitable (than just being profitable due to pure chance) is 4.9% .
+
+![fifa-model-betting-results](/assets/fifa-model/betting_results.png)
+
+A csv file with model results is available [here](https://github.com/bm1125/fifa/blob/master/FIFA.ipynb).
