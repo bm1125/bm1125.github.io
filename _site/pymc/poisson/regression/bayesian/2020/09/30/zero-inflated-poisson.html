@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Zero inflated poisson regression</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Zero inflated poisson regression | Personal Notebook</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Zero inflated poisson regression" />
+<meta name="author" content="Yarden" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero counts is more likeliy than suggested by a regular poisson model. Lets say I want to model the amount of a goals a football player scores in a match. For the sake of simplicity I’m going to assume that the player is either playing all of the match or isn’t playing at all. The data will probably suggests higher count of zero occurences as sometimes the player will not be playing due to various reasons. So what I need to model is two different processes. One is the probability of a player playing in some match $\ k $, the other is the rate (poisson process) of events." />
+<meta property="og:description" content="I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero counts is more likeliy than suggested by a regular poisson model. Lets say I want to model the amount of a goals a football player scores in a match. For the sake of simplicity I’m going to assume that the player is either playing all of the match or isn’t playing at all. The data will probably suggests higher count of zero occurences as sometimes the player will not be playing due to various reasons. So what I need to model is two different processes. One is the probability of a player playing in some match $\ k $, the other is the rate (poisson process) of events." />
+<link rel="canonical" href="http://localhost:4000/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html" />
+<meta property="og:url" content="http://localhost:4000/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html" />
+<meta property="og:site_name" content="Personal Notebook" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-30T00:00:00+03:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Yarden"},"url":"http://localhost:4000/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html","headline":"Zero inflated poisson regression","dateModified":"2020-09-30T00:00:00+03:00","datePublished":"2020-09-30T00:00:00+03:00","description":"I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero counts is more likeliy than suggested by a regular poisson model. Lets say I want to model the amount of a goals a football player scores in a match. For the sake of simplicity I’m going to assume that the player is either playing all of the match or isn’t playing at all. The data will probably suggests higher count of zero occurences as sometimes the player will not be playing due to various reasons. So what I need to model is two different processes. One is the probability of a player playing in some match $\\ k $, the other is the rate (poisson process) of events.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+ <!-- for mathjax support -->
+    
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+
+<body>
+  <main class="container">
+    <section class="about">
+      <a href="/">
+        
+        <img src="/assets/Scan.png" alt="Yarden Gur" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Yarden Gur</a>
+      </h2>
+      <p class="tagline">Notebook</p>
+      <ul class="social"><a href="https://github.com/bm1125" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://twitter.com/yarden_gur" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a><a href=" https://t.me/yardeng" target="_blank">
+          <li>
+            <i class="icon-telegram"></i>
+          </li>
+        </a></ul><p>&copy;
+        2023</p></section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html">
+    <h2 class="post-title">Zero inflated poisson regression</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Sep 30, 2020</div><ul class="post-categories"><li>pymc</li><li>poisson</li><li>regression</li><li>bayesian</li></ul></div>
+  <div class="post">
+    <p>I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero counts is more likeliy than suggested by a regular poisson model.
+Lets say I want to model the amount of a goals a football player scores in a match. For the sake of simplicity I’m going to assume that the player is either playing all of the match or isn’t playing at all. The data will probably suggests higher count of zero occurences as sometimes the player will not be playing due to various reasons. So what I need to model is two different processes. One is the probability of a player playing in some match $\ k $, the other is the rate (poisson process) of events.</p>
+
+<p>In mathematical notation I’ll say that the probability \(x\) goals in a match is :</p>
+
+\[P(\text{Goals} = 0) = P(\text{Goals} = 0 \ | \ \text{Has Played}) \times P(\text{Has Played}) + P(\text{Goals} = 0 \ | \ \text{Not Played}) \times P(\text{Not Played})\]
+
+<p>And if \(x \ne 0 \\
+\\
+\\
+P(\text{Goals} = k) = P(\text{Goals} = k \ | k \sim Pois(\lambda))\)</p>
+
+<p>So now I am going to generate some fake data. Lets suppose that I want to model goals by some player in every match when the player has 60% chance of playing in any particular game and his score rate for each game is 1. I’m going to generate data for 40 matches.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">poisson</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>So it is pretty simple, the first part of the code will be \(0, 1\) vector where \(0\) indicate the player didn’t play and \(1\) that he did.  The second part just simulate a poisson process.</p>
+
+<p><img src="/assets/zip_simulation.png" alt="zero-inflated-vs-poisson" /></p>
+
+<p>Building the model using pymc is quite simple. In this case I have only two parameters to estimate. The \(\lambda\) of the poisson process and the \(\ p\) , the probability of the player playing in a match.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+	<span class="k">with</span> <span class="n">pm</span><span class="p">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">zip_model</span><span class="p">:</span>
+    	<span class="c1"># Priors - remember they are logit and log functions!
+</span>	    <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">Normal</span><span class="p">(</span><span class="s">'a'</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+	    <span class="n">lam</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">Normal</span><span class="p">(</span><span class="s">'lam'</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+	    
+	    <span class="n">lambda_</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span> <span class="c1"># Process rate of events
+</span>	    <span class="n">p</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">invlogit</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># Probability of playing in a match
+</span>	    
+	    <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">ZeroInflatedPoisson</span><span class="p">(</span><span class="s">'y'</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="n">p</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">observed</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'output'</span><span class="p">])</span>
+	    
+	    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">,</span> <span class="n">tune</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">chains</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cores</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now lets see what is the mean of the estimations of each parameter.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="n">logistic</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="s">'a'</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># Probability of playing in a match
+</span>
+	<span class="mf">0.6047753681606323</span>
+
+	<span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="s">'lam'</span><span class="p">]).</span><span class="n">mean</span><span class="p">()</span>
+
+	<span class="mf">0.7717652918488087</span>
+</code></pre></div></div>
+
+<p>So the rate process is quite off to be honest (Remember I set it to 1). But then again it is only 40 data points , my guess is that it is really hard to estimate. Here is a plot of the posterior distribution for \(\lambda\)</p>
+
+<p><img src="/assets/lambda_est.png" alt="posterior-lambda" /></p>
+
+<p>and finall, here’s a comparsion of the observed data (the fake data I generated earlier) with a zero inflated model and a regular poisson model (Just took the average and computed probabilities).</p>
+
+<p><img src="/assets/zip_result.png" alt="final-zip-results" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Observed</th>
+      <th>Zero-Inflated</th>
+      <th>Poisson</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.675</td>
+      <td>0.684500</td>
+      <td>0.637628</td>
+    </tr>
+    <tr>
+      <td>0.225</td>
+      <td>0.208833</td>
+      <td>0.286933</td>
+    </tr>
+    <tr>
+      <td>0.075</td>
+      <td>0.080333</td>
+      <td>0.064560</td>
+    </tr>
+    <tr>
+      <td>0.025</td>
+      <td>0.021000</td>
+      <td>0.009684</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For every possible value, the zero inflated model estimated probability much better than just using poisson average. Although both of them overestimated the probability of 1.</p>
+
+  </div></div>
+
+    </section>
+  </main>
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+ 
+</body>
+
+</html>

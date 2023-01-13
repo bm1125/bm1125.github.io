@@ -1,0 +1,135 @@
+[
+  
+    {
+      "title"    : "",
+      "title-lower"    : "",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2023/01/13/2020-10-19-SVM-for-predicting-football.html",
+      "date"     : "2023-01-13 23:41:03 +0200",
+      "content"     : "One thing Nassim Taleb keeps repeating on is the importance of understanding the properties of a variable before everything else. I kinda agree. I think we too often dwelve into complicated statist..."
+    } ,
+  
+    {
+      "title"    : "Betting the world cup",
+      "title-lower"    : "betting the world cup",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "world cupbettingfootball",
+      "tags"     : "",
+      "url"      : "/world%20cup/betting/football/2023/01/13/betting-on-the-world-cup.html",
+      "date"     : "2023-01-13 00:00:00 +0200",
+      "content"     : "I have always been fascinated with sports betting and professional bettors. I have tried several times in the past to do it professionally, either in quantitative or qualitative ways. I guess it is..."
+    } ,
+  
+    {
+      "title"    : "Using EA FIFA team rankings to train a neural network",
+      "title-lower"    : "using ea fifa team rankings to train a neural network",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "EPLDeep-Learningfootball",
+      "tags"     : "",
+      "url"      : "/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html",
+      "date"     : "2020-10-18 00:00:00 +0300",
+      "content"     : "In this post I will check if a neural network trained using FIFA team rankings could produce valuable predictions of football matches.I actually did this quite a while ago. I just wanted to make mo..."
+    } ,
+  
+    {
+      "title"    : "Goal scoring ability over number of resting days",
+      "title-lower"    : "goal scoring ability over number of resting days",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "EPLfootballGLM",
+      "tags"     : "",
+      "url"      : "/epl/football/glm/2020/10/10/goals-scoring-and-resting-days.html",
+      "date"     : "2020-10-10 00:00:00 +0300",
+      "content"     : "I wanted to see if there is any relationship between the days of rest (or not actually rest, but days since last match) to the amount of goals a team will score in a game.I used the data from footb..."
+    } ,
+  
+    {
+      "title"    : "Using zero-inflated poisson to predict Messi&#39;s goals per game",
+      "title-lower"    : "using zero-inflated poisson to predict messi&#39;s goals per game",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "messifootballlaligapoissonregressionbayesianpymc",
+      "tags"     : "",
+      "url"      : "/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html",
+      "date"     : "2020-10-05 00:00:00 +0300",
+      "content"     : "My previous post was about a zero inflated poisson process where an observation of zero counts may be possible due to two different processes. After understanding (hopefully) the idea behind ZIP (z..."
+    } ,
+  
+    {
+      "title"    : "Zero inflated poisson regression",
+      "title-lower"    : "zero inflated poisson regression",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "pymcpoissonregressionbayesian",
+      "tags"     : "",
+      "url"      : "/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html",
+      "date"     : "2020-09-30 00:00:00 +0300",
+      "content"     : "I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero ..."
+    } ,
+  
+    {
+      "title"    : "Predicting premier league with bayesian multilevel model",
+      "title-lower"    : "predicting premier league with bayesian multilevel model",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "bayesiananalysisfootballstatisticshierarchicalR",
+      "tags"     : "",
+      "url"      : "/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html",
+      "date"     : "2020-09-15 00:00:00 +0300",
+      "content"     : "The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarchical) model. The multilevel models are sort of a compromise between independent and dependent cluste..."
+    } ,
+  
+    {
+      "title"    : "Manhattan 2-1-2 betting system",
+      "title-lower"    : "manhattan 2-1-2 betting system",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "casinoroulettebetting2-1-2manhattanstrategy",
+      "tags"     : "",
+      "url"      : "/casino/roulette/betting/2-1-2/manhattan/strategy/2020/08/29/manhattan-2-1-2-betting-strategy.html",
+      "date"     : "2020-08-29 00:00:00 +0300",
+      "content"     : "I’m going to explore an interesting strategy suggested by Aaron Brown on one of his quora posts.At the end of the day any game in the casino is negative EV game (from the bettor side) but there is ..."
+    } ,
+  
+    {
+      "title"    : "Metropolis-Hasting sampling algorithm",
+      "title-lower"    : "metropolis-hasting sampling algorithm",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "StatisticsPythonMCMC",
+      "tags"     : "",
+      "url"      : "/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html",
+      "date"     : "2020-08-27 00:00:00 +0300",
+      "content"     : "MCMC sampling method allow to sample directly from the posterior without the need to know its shape or any other properties. Remember that the definition:\[P( \theta \ | \ data) = \frac{P(data \ | ..."
+    } ,
+  
+    {
+      "title"    : "How good was Real Madrid this season?",
+      "title-lower"    : "how good was real madrid this season?",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "footballReal-MadridBarcelona",
+      "tags"     : "",
+      "url"      : "/football/real-madrid/barcelona/2020/07/29/how-good-is-real-madrid.html",
+      "date"     : "2020-07-29 00:00:00 +0300",
+      "content"     : "This season (2019-20) started well for Barcelona and not so well for Real Madrid. The corona forces the league to a halt at March 20 and the league returned only in June (or July?). From there thin..."
+    } ,
+  
+    {
+      "title"    : "Gamma distribution in R",
+      "title-lower"    : "gamma distribution in r",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Rgammaprobability",
+      "tags"     : "",
+      "url"      : "/r/gamma/probability/2020/05/01/gamma-distribution-r.html",
+      "date"     : "2020-05-01 00:00:00 +0300",
+      "content"     : "Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the prob..."
+    } 
+  
+]

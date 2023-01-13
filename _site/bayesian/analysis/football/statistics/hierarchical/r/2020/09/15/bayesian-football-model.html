@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Predicting premier league with bayesian multilevel model</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Predicting premier league with bayesian multilevel model | Personal Notebook</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Predicting premier league with bayesian multilevel model" />
+<meta name="author" content="Yarden" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarchical) model. The multilevel models are sort of a compromise between independent and dependent clusters. I think one of the advantages of such model is that it allows me to say that I’m not really sure about the relationship between clusters. And it may be that one cluster has some infromative value on another cluster. In my case each cluster represent a team. I will try and make a multilevel model to predict english premier leauge games." />
+<meta property="og:description" content="The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarchical) model. The multilevel models are sort of a compromise between independent and dependent clusters. I think one of the advantages of such model is that it allows me to say that I’m not really sure about the relationship between clusters. And it may be that one cluster has some infromative value on another cluster. In my case each cluster represent a team. I will try and make a multilevel model to predict english premier leauge games." />
+<link rel="canonical" href="http://localhost:4000/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html" />
+<meta property="og:url" content="http://localhost:4000/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html" />
+<meta property="og:site_name" content="Personal Notebook" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-15T00:00:00+03:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Yarden"},"url":"http://localhost:4000/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html","headline":"Predicting premier league with bayesian multilevel model","dateModified":"2020-09-15T00:00:00+03:00","datePublished":"2020-09-15T00:00:00+03:00","description":"The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarchical) model. The multilevel models are sort of a compromise between independent and dependent clusters. I think one of the advantages of such model is that it allows me to say that I’m not really sure about the relationship between clusters. And it may be that one cluster has some infromative value on another cluster. In my case each cluster represent a team. I will try and make a multilevel model to predict english premier leauge games.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+ <!-- for mathjax support -->
+    
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+
+<body>
+  <main class="container">
+    <section class="about">
+      <a href="/">
+        
+        <img src="/assets/Scan.png" alt="Yarden Gur" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Yarden Gur</a>
+      </h2>
+      <p class="tagline">Notebook</p>
+      <ul class="social"><a href="https://github.com/bm1125" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://twitter.com/yarden_gur" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a><a href=" https://t.me/yardeng" target="_blank">
+          <li>
+            <i class="icon-telegram"></i>
+          </li>
+        </a></ul><p>&copy;
+        2023</p></section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html">
+    <h2 class="post-title">Predicting premier league with bayesian multilevel model</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Sep 15, 2020</div><ul class="post-categories"><li>bayesian</li><li>analysis</li><li>football</li><li>statistics</li><li>hierarchical</li><li>R</li></ul></div>
+  <div class="post">
+    <p>The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarchical) model. The multilevel models are sort of a compromise between independent and dependent clusters. I think one of the advantages of such model is that it allows me to say that I’m not really sure about the relationship between clusters. And it may be that one cluster has some infromative value on another cluster. In my case each cluster represent a team. I will try and make a multilevel model to predict english premier leauge games.</p>
+
+<p>I believe it is easier to understand the differences between the models by looking at the mathematical notation.</p>
+
+<p>(1)</p>
+
+\[Goals_{k} \sim Poisson(\lambda) \\ log(\lambda) = attack_{i} + defense_{j} + \alpha_H * home \\
+attack_i \sim Normal(0, 1) \\ defense_j \sim Normal(0, 1) \\ \alpha_H \sim Normal(0,1)\]
+
+<p>Where \(attack_i\) is the attack of team <em>i</em> and \(defense_j\) is the defense of team <em>j</em> the \(\alpha_H\) is the intercept for home advantage.
+If I ran this model, it will try to estimate those parameters for each team <strong>independently</strong>. A multilevel model is a better fit if you assume there is some dependency between the teams. Meaning, you can know more about team i, by knowing about team j.</p>
+
+<p>The mathematical notation for a multilevel model:</p>
+
+\[Goals_{k} \sim Poisson(\lambda) \\ 
+log(\lambda) = attack_{i} + defense_{j} + \alpha_H * home \\
+attack_i \sim Normal(\mu_H, \sigma_H) \\
+defense_j \sim Normal(\mu_A, \sigma_A) \\ 
+\alpha_H \sim Normal(0,1) \\
+\mu_H, \mu_A \sim Normal(0, 1) \\
+\sigma_H, \sigma_a \sim Exp(1)\]
+
+<p>So basically it’s like I set the attack and defense priors to be more adapative throughout the estimation process. Hence, it is like placing a prior on the priors. In this post I will do it with the rethinking package built by Richard Mclearth. Can also be done in pymc3 (python) and ofcourse rstan/pystan.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">	</span><span class="n">epl_model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map2stan</span><span class="p">(</span><span class="w">
+		</span><span class="n">alist</span><span class="p">(</span><span class="w">
+			</span><span class="n">goals</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dpois</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="w">
+			</span><span class="nf">log</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">a_team</span><span class="p">[</span><span class="n">team</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b_opponent</span><span class="p">[</span><span class="n">opponent</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ah</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">home</span><span class="w">
+			</span><span class="n">a_team</span><span class="p">[</span><span class="n">team</span><span class="p">]</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="n">mu_home</span><span class="p">,</span><span class="w"> </span><span class="n">sigma_home</span><span class="p">)</span><span class="w">
+			</span><span class="n">b_opponent</span><span class="p">[</span><span class="n">opponent</span><span class="p">]</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="n">mu_away</span><span class="p">,</span><span class="w"> </span><span class="n">sigma_away</span><span class="p">)</span><span class="w">
+			</span><span class="n">ah</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+			</span><span class="nf">c</span><span class="p">(</span><span class="n">mu_home</span><span class="p">,</span><span class="w"> </span><span class="n">mu_away</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+			</span><span class="nf">c</span><span class="p">(</span><span class="n">sigma_home</span><span class="p">,</span><span class="w"> </span><span class="n">sigma_away</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">dexp</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+		</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">final</span><span class="p">,</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4000</span><span class="p">,</span><span class="w"> </span><span class="n">warmup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span><span class="p">,</span><span class="w"> </span><span class="n">chains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">cores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Below is a plot with estimated parameters of teams attack and defense parameters. The x axis is for attack and y is for defense. Keep in mind, the lower the defense parameter , the better.
+You can see the trend by looking at the plot but it is really hard (at least for me) to estimate the differences between the teams because it’s log values.</p>
+
+<p><img src="/assets/bayesian_epl.png" alt="epl-bayesian-model-football" /></p>
+
+<p>I used data from 19/20 season, and since the season is already over and the league is going into matchday two, I’m going to try and predict the match between Wolves and Manchester City.
+In order to predict a match I will sample the model parameters from the posterior and simulate a poisson process with those parameters. Remember \(\lambda = \text{exp}(attack_i + defense_j + \alpha_H * home)\)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">	</span><span class="n">samples</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">extract.samples</span><span class="p">(</span><span class="n">epl_model</span><span class="p">)</span><span class="w">
+
+	</span><span class="n">goals_simulation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">team</span><span class="p">,</span><span class="w"> </span><span class="n">opponent</span><span class="p">,</span><span class="w"> </span><span class="n">home</span><span class="p">)</span><span class="w"> 
+			</span><span class="n">rpois</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">samples</span><span class="o">$</span><span class="n">a_team</span><span class="p">),</span><span class="w">
+				</span><span class="n">lambda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">samples</span><span class="o">$</span><span class="n">a_team</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="n">team</span><span class="p">)]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">samples</span><span class="o">$</span><span class="n">b_opponent</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="n">opponent</span><span class="p">)]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">home</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">samples</span><span class="o">$</span><span class="n">ah</span><span class="p">)))</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p>Wolves - Draw - Man City:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	[1] 0.2482303 0.2203352 0.5295773
+</code></pre></div></div>
+
+<p>I have also simulated the game using non-pooling (as in model (1))</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	[1] 0.2208177 0.2269273 0.5512550
+</code></pre></div></div>
+
+<p>The regular model is actually closer to the implied probabilities on pinnacle (known as the benchmark for any model).</p>
+
+<p>There are still a lot of problem I have to overcome before this model may have any use. Right now the multilevel model hasn’t even converge properly. The effective samples number is too low, Not sure how to overcome this.</p>
+
+  </div></div>
+
+    </section>
+  </main>
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+ 
+</body>
+
+</html>

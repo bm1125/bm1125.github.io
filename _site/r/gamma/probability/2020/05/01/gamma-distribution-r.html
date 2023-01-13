@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Gamma distribution in R</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Gamma distribution in R | Personal Notebook</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Gamma distribution in R" />
+<meta name="author" content="Yarden" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the probability of k-th events to occur in a specific time interval. It’s important to remember, as you will mostly use only the cdf fucntion (As with most continiuous functions), so the question it is answering is, given some rate of events and some events count, what is the probability of observing this amount of events in chosen T time?" />
+<meta property="og:description" content="Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the probability of k-th events to occur in a specific time interval. It’s important to remember, as you will mostly use only the cdf fucntion (As with most continiuous functions), so the question it is answering is, given some rate of events and some events count, what is the probability of observing this amount of events in chosen T time?" />
+<link rel="canonical" href="http://localhost:4000/r/gamma/probability/2020/05/01/gamma-distribution-r.html" />
+<meta property="og:url" content="http://localhost:4000/r/gamma/probability/2020/05/01/gamma-distribution-r.html" />
+<meta property="og:site_name" content="Personal Notebook" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-01T00:00:00+03:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Yarden"},"url":"http://localhost:4000/r/gamma/probability/2020/05/01/gamma-distribution-r.html","headline":"Gamma distribution in R","dateModified":"2020-05-01T00:00:00+03:00","datePublished":"2020-05-01T00:00:00+03:00","description":"Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the probability of k-th events to occur in a specific time interval. It’s important to remember, as you will mostly use only the cdf fucntion (As with most continiuous functions), so the question it is answering is, given some rate of events and some events count, what is the probability of observing this amount of events in chosen T time?","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/r/gamma/probability/2020/05/01/gamma-distribution-r.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+ <!-- for mathjax support -->
+    
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+
+<body>
+  <main class="container">
+    <section class="about">
+      <a href="/">
+        
+        <img src="/assets/Scan.png" alt="Yarden Gur" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Yarden Gur</a>
+      </h2>
+      <p class="tagline">Notebook</p>
+      <ul class="social"><a href="https://github.com/bm1125" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://twitter.com/yarden_gur" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a><a href=" https://t.me/yardeng" target="_blank">
+          <li>
+            <i class="icon-telegram"></i>
+          </li>
+        </a></ul><p>&copy;
+        2023</p></section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/r/gamma/probability/2020/05/01/gamma-distribution-r.html">
+    <h2 class="post-title">Gamma distribution in R</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>May 1, 2020</div><ul class="post-categories"><li>R</li><li>gamma</li><li>probability</li></ul></div>
+  <div class="post">
+    <p>Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the probability of <em>k-th</em> events to occur in a specific time interval. It’s important to remember, as you will mostly use only the cdf fucntion (As with most continiuous functions), so the question it is answering is, given some rate of events and some events count, what is the probability of observing this amount of events in chosen <strong>T</strong> time?</p>
+
+<p>For example, Suppose I want to model number of goals a team will score in the next time interval. The R code is</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">	</span><span class="n">pgamma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">theta</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="n">cdf</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p>Where <strong>x</strong> is the number of minutes, <strong>k</strong> is the number of goals and \(\theta\) is the rate parameter. In this example lets say the team I’m following scores on average 1.95 goals per game and each game is 95 minutes (including additional time) then the \(\theta\) parameter is \(\frac{1.95}{95}\)</p>
+
+<p>In some cases (in python I think) the parameter should be calculated the opposite way ie \(\frac{95}{1.95} \approx 48.71\) minutes per goal</p>
+
+<p>This comes in handy in live betting. Lets say for example that this team currently play against some other team and the game is in its 10th minute. I want to know what is the probability of seeing 2 more goals by the end of the game. Since we’re at the 10th minute, I know there is 85 minutes left (with estimated additional time of 5 minutes).</p>
+
+<p>The following plot is the density plot although, at least for me, it is not really helpful as I find it hard to deduce anything out of it.</p>
+
+<p><img src="/assets/gamma_plot.png" alt="gamma-density" /></p>
+
+<p>plotting the cdf will be much more useful in order to see the actual probabilities.</p>
+
+<p><img src="/assets/gamma_cdf.png" alt="gamma-cumulative-density" /></p>
+
+<p>using R</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">	</span><span class="n">pgamma</span><span class="p">(</span><span class="m">85</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">1.95</span><span class="o">/</span><span class="m">95</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	0.5205193
+</code></pre></div></div>
+
+  </div></div>
+
+    </section>
+  </main>
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+ 
+</body>
+
+</html>

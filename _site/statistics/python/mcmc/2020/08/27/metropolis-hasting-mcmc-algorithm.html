@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Metropolis-Hasting sampling algorithm</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Metropolis-Hasting sampling algorithm | Personal Notebook</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Metropolis-Hasting sampling algorithm" />
+<meta name="author" content="Yarden" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="MCMC sampling method allow to sample directly from the posterior without the need to know its shape or any other properties. Remember that the definition:" />
+<meta property="og:description" content="MCMC sampling method allow to sample directly from the posterior without the need to know its shape or any other properties. Remember that the definition:" />
+<link rel="canonical" href="http://localhost:4000/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html" />
+<meta property="og:url" content="http://localhost:4000/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html" />
+<meta property="og:site_name" content="Personal Notebook" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-27T00:00:00+03:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Yarden"},"url":"http://localhost:4000/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html","headline":"Metropolis-Hasting sampling algorithm","dateModified":"2020-08-27T00:00:00+03:00","datePublished":"2020-08-27T00:00:00+03:00","description":"MCMC sampling method allow to sample directly from the posterior without the need to know its shape or any other properties. Remember that the definition:","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+ <!-- for mathjax support -->
+    
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        });
+      </script>
+      <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+
+<body>
+  <main class="container">
+    <section class="about">
+      <a href="/">
+        
+        <img src="/assets/Scan.png" alt="Yarden Gur" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Yarden Gur</a>
+      </h2>
+      <p class="tagline">Notebook</p>
+      <ul class="social"><a href="https://github.com/bm1125" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://twitter.com/yarden_gur" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a><a href=" https://t.me/yardeng" target="_blank">
+          <li>
+            <i class="icon-telegram"></i>
+          </li>
+        </a></ul><p>&copy;
+        2023</p></section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html">
+    <h2 class="post-title">Metropolis-Hasting sampling algorithm</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Aug 27, 2020</div><ul class="post-categories"><li>Statistics</li><li>Python</li><li>MCMC</li></ul></div>
+  <div class="post">
+    <p>MCMC sampling method allow to sample directly from the posterior without the need to know its shape or any other properties. Remember that the definition:</p>
+
+\[P( \theta \ | \ data) = \frac{P(data \ | \ \theta) \times P(\theta)}{P(data)} \propto P(data \ | \ \theta) \times P(\theta)\]
+
+<p>What I’m actually doing is applying the last part only and directly its distribution. Remember that the denominator is just a normalizing constant (making sure the distribution sums up to 1) so we can ignore it.</p>
+
+<p>The metropolis hasting method is quite simple. You start with an empty list of parameters.</p>
+
+<ol>
+  <li>At first, you pick a random point from the prior distribution.</li>
+  <li>Evlaluate:
+\(likelihood \times prior = P( data \ | \ prior) \times P(prior)\)</li>
+  <li>Pick new random point from the prior and evluate again as in step 2.</li>
+  <li>Compute the ratio between the two: (new posterior)/(old posterior)</li>
+  <li>If ratio is bigger than 1 or it is bigger than a random number generated from uniform (in the example below) then you add it to your parameters list.</li>
+  <li>If ratio is smaller than one and smaller than random generated number then add your current number (again) to your list and repeat all the steps above.</li>
+</ol>
+
+<p>In this example I’m going to estimate the probability of a coin landing heads given I have observed 7 heads and 3 tails.
+I will set a beta prior with parameters alpha = 1, beta = 1 what makes it exactly the same as uniform distrubtion.</p>
+
+<p>Beta distributions for reference:</p>
+
+<p><img src="/assets/beta.jpg" alt="beta distbution with different parameters" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="n">ss</span>
+
+<span class="k">def</span> <span class="nf">metropolis_hasting</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">a_beta</span><span class="p">,</span> <span class="n">b_beta</span><span class="p">):</span>
+    
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">start_p</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+
+        <span class="n">new_p</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a_beta</span><span class="p">,</span> <span class="n">b_beta</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">old_prior</span> <span class="o">=</span> <span class="n">ss</span><span class="p">.</span><span class="n">beta</span><span class="p">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">start_p</span><span class="p">,</span> <span class="n">a_beta</span><span class="p">,</span> <span class="n">b_beta</span><span class="p">)</span>
+        <span class="n">new_prior</span> <span class="o">=</span> <span class="n">ss</span><span class="p">.</span><span class="n">beta</span><span class="p">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">new_p</span><span class="p">,</span> <span class="n">a_beta</span><span class="p">,</span> <span class="n">b_beta</span><span class="p">)</span>
+
+        <span class="n">posterior_old</span> <span class="o">=</span> <span class="n">ss</span><span class="p">.</span><span class="n">binom</span><span class="p">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">start_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">old_prior</span>
+        <span class="n">posterior_new</span> <span class="o">=</span> <span class="n">ss</span><span class="p">.</span><span class="n">binom</span><span class="p">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">new_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">new_prior</span>
+
+        <span class="n">ratio</span> <span class="o">=</span> <span class="n">posterior_new</span> <span class="o">/</span> <span class="n">posterior_old</span>
+
+        <span class="k">if</span> <span class="n">ratio</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">ratio</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_p</span>
+            <span class="n">start_p</span> <span class="o">=</span> <span class="n">new_p</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_p</span>
+        
+    <span class="k">return</span> <span class="n">parameters</span>
+
+</code></pre></div></div>
+
+<p>The good thing about choosing beta prior is that you can actually deduce the posterior analytically. I won’t go into the details here but what’s important to remember is that given a beta prior and a binomial likelihood, the posterior will also be beta with parameters
+\(\alpha_{posterior} = \alpha_{prior} + x \ \ \ , \ \ \  \beta_{posterior} = \beta_{prior} + n - x\)
+Where x is the number of success and n is number of trials</p>
+
+<p>Here is a comparsion of analytically deduced posterior and the MCMC results</p>
+
+<p><img src="/assets/mcmc.png" alt="mcmc metropolis hasting result" /></p>
+
+
+  </div></div>
+
+    </section>
+  </main>
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+ 
+</body>
+
+</html>
