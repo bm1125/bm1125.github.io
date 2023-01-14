@@ -48,7 +48,8 @@ plainwhite:
 # - about.md
 
 # Build settings
-theme: plainwhite
+# theme: plainwhite
+remote_theme: hydecorp/hydejack
 markdown: kramdown
 plugins:
   - jekyll-seo-tag
