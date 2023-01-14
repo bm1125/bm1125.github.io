@@ -115,4 +115,4 @@ In order to test the model, I decided to check it against betting odds. In the t
 
 ![fifa-model-betting-results](/assets/fifa-model/betting_results.png)
 
-A csv file with model results is available [here](https://github.com/bm1125/fifa/blob/master/FIFA.ipynb).
+A full notebook is available on [github](https://github.com/bm1125/fifa/blob/master/FIFA.ipynb).
