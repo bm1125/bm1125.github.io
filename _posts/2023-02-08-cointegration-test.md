@@ -28,7 +28,7 @@ I have attached below some examples of pairs I have found. Some seems to be movi
 ![normalized prices movement and difference](/assets/cointegration/DATAUSDT-OMUSDT.png)
 Correlation of this pair is around $$\ 0.20 $$. Correlation plot:
 
-![correlation plot](/assets/cointegration/DATAUSDT_OMUSDT_CORRELATION.PNG)
+![correlation plot](/assets/cointegration/DATAUSDT_OMUSDT_CORRELATION.png)
 
 Others, seems to be highly correlated anyway, so I am not sure if cointegration has any additional value.
 Correlation $$\ ~0.55 $$
