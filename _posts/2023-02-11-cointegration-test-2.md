@@ -5,7 +5,7 @@ usemathjax: true
 categories: [Trading, Crypto, Cointegration, Deming, Regression]
 ---
 
-I came across this tweet of Ernest Chan where he advised to use deming regression instead of OLS to find the best regression line when measuring cointegration. OLS assumes no noise for the predictor and only for the predicted variable. So it finds the regression line that reduce the distances as measured vertically. Deming regression allows for noise of both the predictor and the predicted variable with extra parameter, $$\ \delta $$. $$\ \delta $$ is the ratio of the standard deviations of variables noise. if $$\ y^*_i, x^*_i $$ are the "true" values:
+I came across this tweet of Ernest Chan where he advised to use deming regression instead of OLS to find the best regression line when measuring cointegration. OLS assumes no noise for the predictor and only for the predicted variable. So it finds the regression line that reduce the distances as measured vertically. Deming regression allows for noise of both the predictor and the predicted variable with extra parameter, $$\ \delta $$. $$\ \delta $$ is the ratio of the standard deviations of variables noise. if $\ y^*_i, x^*_i $ are the "true" values:
 
 $$\ 
 
