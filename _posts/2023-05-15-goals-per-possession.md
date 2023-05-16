@@ -63,4 +63,6 @@ This is clear as night and day. Nothing to look further into. It is tempting to 
 2. Higher threshold of conversion rate (Goals per possession) for a team to be selected and add a defense parameter (teams which concede less may be selected)
 3. Possession has many definitions, test it with other possession stats.
 
+Full notebook available [here](https://github.com/bm1125/bm1125.github.io/blob/main/assets/possession-post/notebook.Rmd)
+
 
