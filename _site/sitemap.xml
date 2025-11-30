@@ -6,61 +6,86 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2023-01-13T23:41:04+02:00</lastmod>
+	    <lastmod>2025-11-30T23:49:57+07:00</lastmod>
             <priority>1.00</priority>
         </url><url>
-                <loc>http://localhost:4000/2023/01/13/2020-10-19-SVM-for-predicting-football.html</loc>
-                <lastmod>2023-01-13T23:41:03+02:00</lastmod>
+                <loc>http://localhost:4000/2025/11/30/2020-10-19-SVM-for-predicting-football.html</loc>
+                <lastmod>2025-11-30T23:49:57+07:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://localhost:4000/european%20football/soccer/betting/2025/11/29/over-under-market-startegy.html</loc>
+                <lastmod>2025-11-29T00:00:00+07:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://localhost:4000/football/betting/2025/11/22/over-under-markets-discrepancy.html</loc>
+                <lastmod>2025-11-22T00:00:00+07:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://localhost:4000/football/epl/laliga/possession/betting/2023/05/15/goals-per-possession.html</loc>
+                <lastmod>2023-05-15T00:00:00+07:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://localhost:4000/trading/crypto/cointegration/deming/regression/2023/02/11/cointegration-test-2.html</loc>
+                <lastmod>2023-02-11T00:00:00+07:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://localhost:4000/trading/crypto/cointegration/2023/02/08/cointegration-test.html</loc>
+                <lastmod>2023-02-08T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/world%20cup/betting/football/2023/01/13/betting-on-the-world-cup.html</loc>
-                <lastmod>2023-01-13T00:00:00+02:00</lastmod>
+                <lastmod>2023-01-13T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html</loc>
-                <lastmod>2020-10-18T00:00:00+03:00</lastmod>
+                <lastmod>2020-10-18T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/epl/football/glm/2020/10/10/goals-scoring-and-resting-days.html</loc>
-                <lastmod>2020-10-10T00:00:00+03:00</lastmod>
+                <lastmod>2020-10-10T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html</loc>
-                <lastmod>2020-10-05T00:00:00+03:00</lastmod>
+                <lastmod>2020-10-05T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html</loc>
-                <lastmod>2020-09-30T00:00:00+03:00</lastmod>
+                <lastmod>2020-09-30T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html</loc>
-                <lastmod>2020-09-15T00:00:00+03:00</lastmod>
+                <lastmod>2020-09-15T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/casino/roulette/betting/2-1-2/manhattan/strategy/2020/08/29/manhattan-2-1-2-betting-strategy.html</loc>
-                <lastmod>2020-08-29T00:00:00+03:00</lastmod>
+                <lastmod>2020-08-29T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html</loc>
-                <lastmod>2020-08-27T00:00:00+03:00</lastmod>
+                <lastmod>2020-08-27T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/football/real-madrid/barcelona/2020/07/29/how-good-is-real-madrid.html</loc>
-                <lastmod>2020-07-29T00:00:00+03:00</lastmod>
+                <lastmod>2020-07-29T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
                 <loc>http://localhost:4000/r/gamma/probability/2020/05/01/gamma-distribution-r.html</loc>
-                <lastmod>2020-05-01T00:00:00+03:00</lastmod>
+                <lastmod>2020-05-01T00:00:00+07:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url></urlset>

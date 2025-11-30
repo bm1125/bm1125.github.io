@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <title>Using zero-inflated poisson to predict Messi's goals per game</title>
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Using zero-inflated poisson to predict Messi’s goals per game | Personal Notebook</title>
-<meta name="generator" content="Jekyll v4.1.1" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Using zero-inflated poisson to predict Messi’s goals per game" />
 <meta name="author" content="Yarden" />
 <meta property="og:locale" content="en_US" />
@@ -19,9 +19,11 @@
 <meta property="og:url" content="http://localhost:4000/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html" />
 <meta property="og:site_name" content="Personal Notebook" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-10-05T00:00:00+03:00" />
+<meta property="article:published_time" content="2020-10-05T00:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Using zero-inflated poisson to predict Messi’s goals per game" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Yarden"},"url":"http://localhost:4000/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html","headline":"Using zero-inflated poisson to predict Messi’s goals per game","dateModified":"2020-10-05T00:00:00+03:00","datePublished":"2020-10-05T00:00:00+03:00","description":"My previous post was about a zero inflated poisson process where an observation of zero counts may be possible due to two different processes. After understanding (hopefully) the idea behind ZIP (zero-inflated poisson) models I wanted to try and see if I could use it to predict the number of goals a specific player is going to score in a specific match.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yarden"},"dateModified":"2020-10-05T00:00:00+07:00","datePublished":"2020-10-05T00:00:00+07:00","description":"My previous post was about a zero inflated poisson process where an observation of zero counts may be possible due to two different processes. After understanding (hopefully) the idea behind ZIP (zero-inflated poisson) models I wanted to try and see if I could use it to predict the number of goals a specific player is going to score in a specific match.","headline":"Using zero-inflated poisson to predict Messi’s goals per game","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html"},"url":"http://localhost:4000/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html"}</script>
 <!-- End Jekyll SEO tag -->
 
  <!-- for mathjax support -->
@@ -59,7 +61,7 @@
             <i class="icon-telegram"></i>
           </li>
         </a></ul><p>&copy;
-        2023</p></section>
+        2025</p></section>
     <section class="content">
       <div class="post-container">
   <a class="post-link" href="/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html">
@@ -137,22 +139,22 @@ log(\lambda) = \alpha_{\lambda} \\
 
 <p>The problem with this dataset is the observations counted over different time intervals so I also had to the estimate the amount of minutes he will play in a game. So it is one more parameter to estimate.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">pm</span><span class="p">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">zip_model</span><span class="p">:</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">pm</span><span class="p">.</span><span class="nc">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">zip_model</span><span class="p">:</span>
     
-    <span class="n">a_mu</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">Normal</span><span class="p">(</span><span class="s">'a_mu'</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">a_sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s">'a_sigma'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">a_mu</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="nc">Normal</span><span class="p">(</span><span class="sh">'</span><span class="s">a_mu</span><span class="sh">'</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">a_sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="nc">Exponential</span><span class="p">(</span><span class="sh">'</span><span class="s">a_sigma</span><span class="sh">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     
-    <span class="n">ap</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">Normal</span><span class="p">(</span><span class="s">'ap'</span><span class="p">,</span> <span class="n">a_mu</span><span class="p">,</span> <span class="n">a_sigma</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">invlogit</span><span class="p">(</span><span class="n">ap</span><span class="p">)</span>
+    <span class="n">ap</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="nc">Normal</span><span class="p">(</span><span class="sh">'</span><span class="s">ap</span><span class="sh">'</span><span class="p">,</span> <span class="n">a_mu</span><span class="p">,</span> <span class="n">a_sigma</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="nf">invlogit</span><span class="p">(</span><span class="n">ap</span><span class="p">)</span>
     
-    <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">Binomial</span><span class="p">(</span><span class="s">'y'</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">,</span> <span class="n">observed</span> <span class="o">=</span> <span class="n">final</span><span class="p">.</span><span class="n">minsplayed</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="nc">Binomial</span><span class="p">(</span><span class="sh">'</span><span class="s">y</span><span class="sh">'</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">,</span> <span class="n">observed</span> <span class="o">=</span> <span class="n">final</span><span class="p">.</span><span class="n">minsplayed</span><span class="p">)</span>
     
-    <span class="n">al</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">Normal</span><span class="p">(</span><span class="s">'al'</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">lambda_</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">al</span><span class="p">)</span>
+    <span class="n">al</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="nc">Normal</span><span class="p">(</span><span class="sh">'</span><span class="s">al</span><span class="sh">'</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">lambda_</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="nf">exp</span><span class="p">(</span><span class="n">al</span><span class="p">)</span>
     
-    <span class="n">goals</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">ZeroInflatedPoisson</span><span class="p">(</span><span class="s">'goals'</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">invlogit</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">observed</span> <span class="o">=</span> <span class="n">final</span><span class="p">.</span><span class="n">goals</span><span class="p">)</span>
+    <span class="n">goals</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="nc">ZeroInflatedPoisson</span><span class="p">(</span><span class="sh">'</span><span class="s">goals</span><span class="sh">'</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="nf">invlogit</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">observed</span> <span class="o">=</span> <span class="n">final</span><span class="p">.</span><span class="n">goals</span><span class="p">)</span>
     
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span> <span class="n">tune</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="p">.</span><span class="nf">sample</span><span class="p">(</span><span class="n">draws</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span> <span class="n">tune</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Eventually, the posterior distribution of our \(\lambda\) parameter (goals per one game):</p>

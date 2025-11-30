@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <title>Personal Notebook</title>
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Personal Notebook | This will serve me as a personal notebook where I’ll write down my own guides for statistics and programming incase I’ll need to refreshen my memory in the future.</title>
-<meta name="generator" content="Jekyll v4.1.1" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Personal Notebook" />
 <meta name="author" content="Yarden" />
 <meta property="og:locale" content="en_US" />
@@ -18,8 +18,11 @@
 <link rel="canonical" href="http://localhost:4000/" />
 <meta property="og:url" content="http://localhost:4000/" />
 <meta property="og:site_name" content="Personal Notebook" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Personal Notebook" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Yarden"},"url":"http://localhost:4000/","headline":"Personal Notebook","description":"This will serve me as a personal notebook where I’ll write down my own guides for statistics and programming incase I’ll need to refreshen my memory in the future.","@type":"WebSite","name":"Personal Notebook","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Yarden"},"description":"This will serve me as a personal notebook where I’ll write down my own guides for statistics and programming incase I’ll need to refreshen my memory in the future.","headline":"Personal Notebook","name":"Personal Notebook","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
  <!-- for mathjax support -->
@@ -50,7 +53,7 @@
             <i class="icon-telegram"></i>
           </li>
         </a></ul><p>&copy;
-        2023</p></section>
+        2025</p></section>
     <section class="content">
       
 <ul class="posts">
@@ -65,15 +68,65 @@
         <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
       </div>
       
-    </li><li><a class="post-link" href="/2023/01/13/2020-10-19-SVM-for-predicting-football.html">
+    </li><li><a class="post-link" href="/2025/11/30/2020-10-19-SVM-for-predicting-football.html">
           <h2 class="post-title"></h2>
         </a>
         <div class="post-meta">
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Jan 13, 2023
+            Nov 30, 2025
           </div></div>
         <div class="post"></div>
+      </li><li><a class="post-link" href="/european%20football/soccer/betting/2025/11/29/over-under-market-startegy.html">
+          <h2 class="post-title">Trying use over dispersion for betting strategy</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Nov 29, 2025
+          </div><ul class="post-categories"><li>European Football</li><li>Soccer</li><li>Betting</li></ul></div>
+        <div class="post"><p>Previously I had worked on two different models trying to predict football 1X2 results. For the first model, the idea behind it was that maybe xG could provide extra signal and I found that it is easier to predict xG than goals. I had many iterations over, starting out with just a glm that also takes in xG prediction, then moved to predict directly goals difference using OLS instead of goals scoring, later on i picked multinomial logistic model when I understood that maybe SSE is not the right choice for loss function of a model and then due to model going crazy often, applied regularization (ridge regression). The other model was simpler, an ELO model where the actual score for each match was computed using 0,1,3 instead of 0,0.5,1 and for the expected score I used 1X2 closing line instead of the model predictions, \(\ 1/odds_{win} * 3 + 1/odds_{draw} * 1\). I did any mistake possible, worked a lot with gpt and gemini, discorvered that both made up a lot of numbers when I asked them to run backtest. I think my most important take from this endeavor is that you don’t actually need the best model to be profitable. You need a model that will give you a good signal.</p>
+</div>
+      </li><li><a class="post-link" href="/football/betting/2025/11/22/over-under-markets-discrepancy.html">
+          <h2 class="post-title">Over dispersion in football</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Nov 22, 2025
+          </div><ul class="post-categories"><li>Football</li><li>Betting</li></ul></div>
+        <div class="post"><p>I had recently saw a post from <a href="https://x.com/Gingfacekillah">@Gingfacekillah</a> on X where he suggested to look at the over/under markets just like a stock option with strike price (the line). I was not sure how or why but with the help of ChatGPT I decided to look into it, specifically european football market.</p>
+</div>
+      </li><li><a class="post-link" href="/football/epl/laliga/possession/betting/2023/05/15/goals-per-possession.html">
+          <h2 class="post-title">Goals per possession</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            May 15, 2023
+          </div><ul class="post-categories"><li>Football</li><li>EPL</li><li>Laliga</li><li>Possession</li><li>Betting</li></ul></div>
+        <div class="post"><p>For a long time, I had a thesis I wanted to test. My thesis was that some teams can convert little possession into goals much better, hence those teams will be underestimated against some better opponents.</p>
+</div>
+      </li><li><a class="post-link" href="/trading/crypto/cointegration/deming/regression/2023/02/11/cointegration-test-2.html">
+          <h2 class="post-title">Cointegration continued and deming regression</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Feb 11, 2023
+          </div><ul class="post-categories"><li>Trading</li><li>Crypto</li><li>Cointegration</li><li>Deming</li><li>Regression</li></ul></div>
+        <div class="post"><p>I came across this tweet of Ernest Chan where he advised to use deming regression instead of OLS to find the best regression line when measuring cointegration. OLS assumes no noise for the predictor and only for the predicted variable. So it finds the regression line that reduce the distances as measured vertically. Deming regression allows for noise of both the predictor and the predicted variable with extra parameter, \(\delta\). \(\delta\) is the ratio of the standard deviations of variables noise. if \(y^*_i, x^*_i\) are the “true” values:</p>
+</div>
+      </li><li><a class="post-link" href="/trading/crypto/cointegration/2023/02/08/cointegration-test.html">
+          <h2 class="post-title">Using cointegration to measure the co-movement of assets (Part 1)</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Feb 8, 2023
+          </div><ul class="post-categories"><li>Trading</li><li>Crypto</li><li>Cointegration</li></ul></div>
+        <div class="post"><p>I came across this <a href="https://twitter.com/nik_algo/status/1620412692560490496">tweet</a> from some anon on twitter directing to this <a href="https://palomar.home.ece.ust.hk/MAFS5310_lectures/slides_pairs_trading.pdf">paper</a> of Daniel P. Palomar from Hong Kong university. To reiterate from the paper, he suggests testing for cointegration instead of testing for assets returns correlation. While correlation characterizes short term co-movement, cointegration refers  to the long term co-movement. I think, if I understand correctly then the idea behind cointegration is to check for the difference between noramlized prices of assets and see if the difference is stationary. If it is then one can just regress the price of asset 1 over the price of asset 2 (with OLS) since they will converge at some point.</p>
+</div>
       </li><li><a class="post-link" href="/world%20cup/betting/football/2023/01/13/betting-on-the-world-cup.html">
           <h2 class="post-title">Betting the world cup</h2>
         </a>

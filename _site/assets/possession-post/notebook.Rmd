@@ -1,0 +1,381 @@
+```{r}
+library(tidyverse)
+
+data <- read_csv("~/Desktop/EPL_data.csv")
+head(data)
+```
+
+```{r}
+
+data.1 <- data %>%
+  filter(!is.na(GF)) %>%
+  mutate(
+    Date = parse_date(Date, "%d/%m/%Y"),
+    GF = as.numeric(GF),
+    GA = as.numeric(GA),
+    xGDiff = xG - xGA,
+    GoalsPerPoss = Poss/100*90/GF
+  ) %>%
+  select(-Notes, -Formation) %>%
+  group_by(Team) %>%
+  arrange(Team, Date, by_group = T) %>%
+  mutate(RestDays = Date - lag(Date,1)) %>%
+  ungroup()
+
+```
+
+
+
+
+
+```{r}
+
+data.1 %>% 
+  filter(RestDays <= 7 & Comp == "Premier League") %>%
+  mutate(RestDays = as.character(RestDays)) %>% 
+  ggplot() + geom_density(aes(x = GF, fill = RestDays),colour = NA, alpha = 0.3) + scale_x_continuous(breaks = seq(0,8, by = 1))
+
+```
+
+```{r}
+
+data.1 %>% 
+  filter(RestDays <= 7 & Comp == "Premier League") %>%
+  mutate(RestDays = as.character(RestDays)) %>% 
+  ggplot() + geom_density(aes(x = GA, fill = RestDays),colour = NA, alpha = 0.3) + scale_x_continuous(breaks = seq(0,8, by = 1))
+
+```
+It is quite surprising since the for the group with
+
+```{r}
+
+data.1 %>%
+  filter(Comp == "Premier League") %>%
+  group_by(Team) %>%
+  summarise(avg_xg = mean(xG), avg_xga = mean(xGA)) %>%
+  ggplot() + geom_point(aes(x = avg))
+
+
+```
+
+```{r}
+
+data.1 %>% select(xGDiff, Result) %>% ggplot() + geom_density(aes(x = xGDiff, color = Result))
+
+```
+```{r}
+
+data.1 %>% group_by(Team) %>% summarise(gf_avg = mean(GF, na.rm = T), xg_avg = mean(xG, na.rm = T)) %>% 
+  ggplot() + 
+    geom_point(aes(x = gf_avg, y = xg_avg)) + 
+    geom_text(aes(x = gf_avg, y = xg_avg - 0.03, label = Team), size = 2.5) + 
+    geom_abline(slope = 1, intercept = 0, linetype = "dashed")
+
+```
+```{r}
+data.proc <- data.1 %>%
+  mutate(Home = ifelse(Venue == "Home", 1, 0)) %>%
+  select(Team, Opponent, Home, GF, xG, GoalsPerPoss)
+  
+```
+
+
+
+```{r}
+
+data.1 %>% filter(!is.na(Result) & Comp == "Premier League") %>% group_by(Team) %>% summarise(xg = sum(xG), gf = sum(GF), xga = sum(xGA),ga = sum(GA)) %>%
+  ggplot() + geom_point(aes(x = xg, y = xga)) + geom_text(aes(x = xg, y = xga-1, label = Team), size = 2.5) + geom_abline(intercept = 0, slope = -1, linetype = "dashed")
+
+```
+```{r}
+
+data.proc.1 <- data.1 %>% filter(!is.na(Result) & Comp == "Premier League") %>%select(Date, Team, Opponent, Comp, Venue, GF, GA, Poss, xG, xGA) %>%
+  mutate(xGPerPoss = xG/Poss,
+         GFPerPoss = GF/Poss)
+
+data.proc.1 %>% head()
+
+```
+
+
+```{r}
+
+data.proc.1 %>% mutate(diff = GF - xG) %>% select(diff) %>% ggplot() + geom_histogram(aes(x = diff))
+
+```
+Does the the discreprancy uniform across teams?
+
+```{r}
+
+data.proc.1 %>% mutate(diff = GF - xG) %>% select(Team, diff) %>% ggplot() + geom_boxplot(aes(x = diff, y = reorder(Team, diff))) + xlab("GF - xG") + ylab("Team")
+
+```
+```{r}
+
+data.proc.1 %>% 
+  mutate(xGPerPoss = xG/Poss) %>% 
+  select(Team, xGPerPoss) %>% 
+  ggplot() + geom_boxplot(aes(x = xGPerPoss, y = reorder(Team, xGPerPoss))) + ylab("Team") + xlab("xG Per Possession")
+
+```
+```{r}
+
+data.proc.1 %>%
+  mutate(GFPerPoss = GF/Poss) %>%
+  ggplot() + geom_boxplot(aes(x = GFPerPoss, y = reorder(Team, GFPerPoss))) + ylab("Team") + xlab("Goals Per Possession")
+
+```
+```{r}
+
+data.proc.1 %>%
+  filter(Comp == "Premier League") %>%
+  mutate(GFPerPoss = GF/Poss,
+         xGPerPoss = xG/Poss) %>%
+  group_by(Team) %>%
+  summarise(count = n(), g_mean = mean(GFPerPoss), xg_mean = mean(xGPerPoss), points = 3*sum(GF > GA) + sum(GF == GA), avg_possession = mean(Poss)) %>%
+  select(-count) %>%
+  pivot_longer(!c(Team,points,avg_possession), names_to = "measurement", values_to = "value") %>%
+  ggplot() + geom_point(aes(x = value, y = reorder(Team,points), color = avg_possession, shape = measurement))
+
+```
+Guess it is still better to track goals than the expected goals.
+
+
+
+```{r}
+
+data.proc.1 %>%
+  mutate(xGPerPoss = xG/Poss) %>% 
+  group_by(Team) %>% 
+  summarise(
+    count = n(), 
+    avg_poss = mean(Poss), 
+    avg_xg_poss = mean(xGPerPoss),
+    points = 3*sum(GF > GA) + sum(GF == GA)
+    ) %>% 
+  arrange(desc(points))
+
+```
+```{r}
+
+data.proc.2 <- data.proc.1 %>% left_join(odds_data.1 %>% select(Team, Opponent, Venue, OT, OD, OO, `P>2.5`, `P<2.5`), by = c("Team" = "Team", "Opponent" = "Opponent", "Venue" = "Venue"))
+data.proc.2
+
+
+```
+
+```{r}
+
+data.proc.2 %>%
+  filter(Comp == "Premier League") %>%
+  summarise(count = n(),  gf_mean = mean(GFPerPoss))
+
+```
+
+
+```{r}
+
+epl_filter <- data.proc.2 %>% group_by(Team) %>% summarise(count = n(), gf_mean = mean(GFPerPoss)) %>% filter(gf_mean >= 0.02957445) %>% pull(Team)
+epl_filter
+
+```
+
+Test wether high converting teams are more likeliy to surprise?
+```{r}
+
+data.proc.2 %>%
+  mutate(high_converting = ifelse(Team %in% epl_filter, T, F)) %>%
+  filter(Comp == "Premier League" & OT > OO) %>%
+  group_by(high_converting) %>%
+  summarise(wins = sum(GF > GA), total = n(), win_ratio = sum(GF > GA)/n(), avg_odds = mean(OT))
+
+```
+
+```{r}
+data.proc.2 %>%
+  filter(Comp == "Premier League" & OT > OO) %>%
+  mutate(high_converting = ifelse(Team %in% epl_filter, T, F)) %>%
+  ggplot() + geom_density(aes(x = OT, fill = high_converting), alpha = 0.5,colour = NA) + xlab("Odds")
+```
+
+
+
+
+```{r}
+
+data.proc.2 %>% filter(Team %in% epl_filter & (OT > OO)) %>%
+  mutate(
+    Profit = ifelse(GF > GA, OT-1 ,-1),
+  ) %>%
+  arrange(Date) %>%
+  mutate(CumProfit = cumsum(Profit),
+         Index = row_number(Date)) %>%
+  ggplot() + geom_line(aes(x = Index, y = CumProfit)) + ylab("P/L") + xlab("Bets")
+
+```
+
+Even with the look-ahead bias I have it doesn't look promising. Lets see the result if we just lay the favorites instead of betting on the underdog. Laying the favorites means a success for every Draw/Win for the selected team.
+
+```{r}
+
+data.proc.2 %>% filter(Team %in% epl_filter & (OT > OO)) %>%
+  summarise(count = n(), success = sum(GF>GA), avg_implied_prob = mean(1/OT))
+  
+
+```
+
+I guess not significant. Lets check
+
+```{r}
+sum(dbinom(c(19:65), 65, prob = 0.25))
+```
+
+
+
+
+```{r}
+
+
+data.proc.2 %>%
+  filter(Team %in% epl_filter & (OT > OO)) %>%
+  arrange(Date) %>%
+  mutate(LayOdds = 1/(1-1/OO),
+         Profit = ifelse(GF >= GA, LayOdds-1, -1),
+         CumProfit = cumsum(Profit),
+         Index = row_number(Date)) %>%
+  ggplot() + geom_line(aes(x = Index, y = CumProfit)) + xlab("Bets") + ylab("P/L")
+
+```
+
+It seems more steady and less volatily than betting over only one outcome (selected team to win the match).
+Before I'll test this strategy over other leagues, I'd like to guesstimate how many matches needed before the Goals Per Possession parameter "converge" to its true value.
+I'll plot the running GFPerPoss over the course of the season for each team. Suprisingly, unlike pandas, there is no rolling function in R so I had to create one
+
+```{r}
+rolling_mean <- function(x) {
+  output <- array(dim = length(x))
+  for (i in 1:length(x)) {
+    output[i] = sum(x[1:i])/i
+  }
+  return(output)
+}
+```
+
+
+```{r}
+
+data.proc.2 %>%
+  mutate(GFPerPoss = GF/Poss) %>%
+  group_by(Team) %>%
+  arrange(Team, Date) %>%
+  mutate(GPP_MA = rolling_mean(GFPerPoss),
+         match_number = row_number(Team)) %>%
+  select(match_number, Team, GPP_MA) %>%
+  ggplot() + geom_line(aes(x = match_number, y = GPP_MA, color = Team))
+
+```
+
+So I think it is safe to use the GFPerPoss from match day 15 onwards.
+Now on to testing if this strategy may work in Laliga
+
+```{r}
+
+laliga <- read_csv("Desktop/Laliga_data.csv")
+laliga
+
+```
+
+```{r}
+
+laliga.proc <- laliga %>%
+  select(-Date_y) %>%
+  filter(Comp == "La Liga" & !is.na(Result)) %>%
+  mutate(GF = as.numeric(GF),
+         GA = as.numeric(GA),
+         GFPerPoss = GF/Poss) %>%
+  group_by(Team) %>%
+  arrange(Team, Date_x) %>%
+  mutate(MatchDay = row_number(Team)) %>%
+  ungroup()
+
+laliga.proc %>% head()
+
+```
+
+```{r}
+
+laliga.train <- laliga.proc %>% filter(MatchDay <= 15)
+laliga.test <- laliga.proc %>% filter(MatchDay > 15)
+
+laliga.train %>% summarise(mean = mean(GFPerPoss))
+
+```
+
+```{r}
+
+laliga.train %>% group_by(Team) %>% summarise(mean = mean(GFPerPoss)) %>% summarise(mean = mean(mean))
+
+```
+
+
+how many teams above the mean?
+
+```{r}
+
+laliga.train %>% group_by(Team) %>% summarise(mean = mean(GFPerPoss) > 0.0253) %>% pull(mean) %>% sum()
+filter_laliga <- laliga.train %>% group_by(Team) %>% summarise(mean = mean(GFPerPoss)) %>% filter(mean > 0.0253) %>% pull(Team)
+filter_laliga
+```
+
+So we have 10 teams with goals per possession above mean
+
+```{r}
+
+
+
+laliga.test %>%
+  filter(Team %in% filter_laliga & (OT > OO)) %>%
+  select(Date_x, Team, Opponent, GF, GA, OT, OO) %>%
+  arrange(Date_x) %>%
+  mutate(LayOdds = 1/(1-1/OO),
+         Profit = ifelse(GF > GA, OT-1, -1),
+         CumProfit = cumsum(Profit),
+         Index = row_number(Date_x)) %>%
+  ggplot() + geom_line(aes(x = Index, y = CumProfit)) + xlab("Bets") + ylab("P/L")
+  
+```
+Jesus fucking christ
+
+```{r}
+
+laliga.proc %>%
+  group_by(Team) %>%
+  arrange(Team, Date_x) %>%
+  mutate(GPP_MA = rolling_mean(GFPerPoss)) %>%
+  ggplot() + geom_line(aes(x = MatchDay, y = GPP_MA, color = Team))
+```
+
+
+```{r}
+
+laliga.test %>%
+  mutate(Bucket = ifelse(Team %in% filter_laliga & (OT > OO), "Selected", "Unselected"),
+         Goals = GF + GA) %>%
+  ggplot() + geom_density(aes(x = GF, fill = Bucket), color = NA, alpha = 0.5) + xlab("Goals For")
+
+```
+```{r}
+
+laliga.test %>%
+  mutate(Bucket = ifelse(Team %in% filter_laliga & (OT > OO), "Selected", "Unselected"),
+         Goals = GF + GA) %>%
+  group_by(Bucket) %>%
+  summarise(count = n(), wins = sum(GF > GA), ratio = sum(GF > GA)/n(), avg_odds = mean(1/OT), draws = sum(GF == GA), draw_odds = mean(1/OD))
+
+```
+
+
+
+
+
+

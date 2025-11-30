@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <title>Using EA FIFA team rankings to train a neural network</title>
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Using EA FIFA team rankings to train a neural network | Personal Notebook</title>
-<meta name="generator" content="Jekyll v4.1.1" />
+<meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Using EA FIFA team rankings to train a neural network" />
 <meta name="author" content="Yarden" />
 <meta property="og:locale" content="en_US" />
@@ -19,9 +19,11 @@
 <meta property="og:url" content="http://localhost:4000/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html" />
 <meta property="og:site_name" content="Personal Notebook" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-10-18T00:00:00+03:00" />
+<meta property="article:published_time" content="2020-10-18T00:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Using EA FIFA team rankings to train a neural network" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Yarden"},"url":"http://localhost:4000/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html","headline":"Using EA FIFA team rankings to train a neural network","dateModified":"2020-10-18T00:00:00+03:00","datePublished":"2020-10-18T00:00:00+03:00","description":"In this post I will check if a neural network trained using FIFA team rankings could produce valuable predictions of football matches. I actually did this quite a while ago. I just wanted to make more concise and clean notebook so I started afresh. This time I used fixtures data from football-data.co.uk (instead of football-api.org last time). I took the FIFA team rankings (defense, midfield, attack and overall) of each team in the english permier league for the seasons 17-20.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yarden"},"dateModified":"2020-10-18T00:00:00+07:00","datePublished":"2020-10-18T00:00:00+07:00","description":"In this post I will check if a neural network trained using FIFA team rankings could produce valuable predictions of football matches. I actually did this quite a while ago. I just wanted to make more concise and clean notebook so I started afresh. This time I used fixtures data from football-data.co.uk (instead of football-api.org last time). I took the FIFA team rankings (defense, midfield, attack and overall) of each team in the english permier league for the seasons 17-20.","headline":"Using EA FIFA team rankings to train a neural network","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html"},"url":"http://localhost:4000/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html"}</script>
 <!-- End Jekyll SEO tag -->
 
  <!-- for mathjax support -->
@@ -59,7 +61,7 @@
             <i class="icon-telegram"></i>
           </li>
         </a></ul><p>&copy;
-        2023</p></section>
+        2025</p></section>
     <section class="content">
       <div class="post-container">
   <a class="post-link" href="/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html">
@@ -162,10 +164,10 @@ I actually did this quite a while ago. I just wanted to make more concise and cl
 <p>Using the scraper as follows:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="n">fifa</span> <span class="o">=</span> <span class="n">fifa_index</span><span class="p">.</span><span class="n">fifaIndex</span><span class="p">()</span> <span class="c1"># Initializing
+<span class="n">fifa</span> <span class="o">=</span> <span class="n">fifa_index</span><span class="p">.</span><span class="nf">fifaIndex</span><span class="p">()</span> <span class="c1"># Initializing
 </span>
-<span class="n">fifa</span><span class="p">.</span><span class="n">setVersions</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># Setting versions of FIFA to scrape from. 18 = 2017-2018 and so on.
-</span><span class="n">fifa</span><span class="p">.</span><span class="n">scrapeLeagues</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="c1"># See fifa.getAvailableLeagues() to see all possible leagues to scrape from.
+<span class="n">fifa</span><span class="p">.</span><span class="nf">setVersions</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># Setting versions of FIFA to scrape from. 18 = 2017-2018 and so on.
+</span><span class="n">fifa</span><span class="p">.</span><span class="nf">scrapeLeagues</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="c1"># See fifa.getAvailableLeagues() to see all possible leagues to scrape from.
 </span>
 </code></pre></div></div>
 
@@ -241,30 +243,30 @@ scraping:	 https://www.fifaindex.com/teams/fifa20/1/?league=13&amp;;
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">set_model</span><span class="p">(</span><span class="n">dropout</span><span class="p">,</span> <span class="n">first_layer</span><span class="p">,</span> <span class="n">second_layer</span><span class="p">):</span>
     
     <span class="k">global</span> <span class="n">model</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="nc">Sequential</span><span class="p">()</span>
     <span class="n">n_features</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="n">model</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_features</span><span class="p">,)))</span>
-    <span class="n">model</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">first_layer</span><span class="p">))</span>
-    <span class="n">model</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
-    <span class="n">model</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">second_layer</span><span class="p">))</span>
-    <span class="n">model</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s">'softmax'</span><span class="p">))</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_features</span><span class="p">,)))</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="n">first_layer</span><span class="p">))</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="n">second_layer</span><span class="p">))</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="sh">'</span><span class="s">softmax</span><span class="sh">'</span><span class="p">))</span>
 
-    <span class="n">opt</span> <span class="o">=</span> <span class="n">keras</span><span class="p">.</span><span class="n">optimizers</span><span class="p">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-    <span class="n">model</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s">'categorical_crossentropy'</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s">'Adam'</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">keras</span><span class="p">.</span><span class="n">optimizers</span><span class="p">.</span><span class="nc">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="sh">'</span><span class="s">categorical_crossentropy</span><span class="sh">'</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="sh">'</span><span class="s">Adam</span><span class="sh">'</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">accuracy</span><span class="sh">'</span><span class="p">])</span>
     
 <span class="k">def</span> <span class="nf">test_model</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">patience</span><span class="p">):</span>
-    <span class="n">early_stopping</span> <span class="o">=</span> <span class="n">keras</span><span class="p">.</span><span class="n">callbacks</span><span class="p">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s">'accuracy'</span><span class="p">,</span> <span class="n">min_delta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="n">patience</span><span class="p">)</span>
-    <span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">early_stopping</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">model</span><span class="p">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="n">early_stopping</span> <span class="o">=</span> <span class="n">keras</span><span class="p">.</span><span class="n">callbacks</span><span class="p">.</span><span class="nc">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="sh">'</span><span class="s">accuracy</span><span class="sh">'</span><span class="p">,</span> <span class="n">min_delta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="n">patience</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">early_stopping</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>I really don’t have experience with such models and I actually don’t know what parameters to start with. So I just played with it until i’ve found the best parameters according to the model accuracy. I’m not sure how much emphasis I should place on model accuracy because football games are low scoring games that are much more random than other sports. It’s not like a classic classification problem where you have only right answer. All options are possible, home win, draw and away win and my end goal is to create a model that will estimate the probability for each scenario, better than the betting markets.</p>
 
 <p>So at the end I set the model to 2 layers of 8 and 6 nodes each and dropout rate of 0.5 and patience 15.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">set_model</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">test_model</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">set_model</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="nf">test_model</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4/4 [==============================] - 0s 875us/step - loss: 1.0003 - accuracy: 0.5175
@@ -441,7 +443,7 @@ scraping:	 https://www.fifaindex.com/teams/fifa20/1/?league=13&amp;;
 
 <p><img src="/assets/fifa-model/betting_results.png" alt="fifa-model-betting-results" /></p>
 
-<p>A csv file with model results is available <a href="https://github.com/bm1125/fifa/blob/master/FIFA.ipynb">here</a>.</p>
+<p>A full notebook is available on <a href="https://github.com/bm1125/fifa/blob/master/FIFA.ipynb">github</a>.</p>
 
   </div></div>
 

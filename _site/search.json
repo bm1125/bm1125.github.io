@@ -7,9 +7,69 @@
       "sub-titile-lower" : "",
       "categories" : "",
       "tags"     : "",
-      "url"      : "/2023/01/13/2020-10-19-SVM-for-predicting-football.html",
-      "date"     : "2023-01-13 23:41:03 +0200",
+      "url"      : "/2025/11/30/2020-10-19-SVM-for-predicting-football.html",
+      "date"     : "2025-11-30 23:49:57 +0700",
       "content"     : "One thing Nassim Taleb keeps repeating on is the importance of understanding the properties of a variable before everything else. I kinda agree. I think we too often dwelve into complicated statist..."
+    } ,
+  
+    {
+      "title"    : "Trying use over dispersion for betting strategy",
+      "title-lower"    : "trying use over dispersion for betting strategy",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "European FootballSoccerBetting",
+      "tags"     : "",
+      "url"      : "/european%20football/soccer/betting/2025/11/29/over-under-market-startegy.html",
+      "date"     : "2025-11-29 00:00:00 +0700",
+      "content"     : "Previously I had worked on two different models trying to predict football 1X2 results. For the first model, the idea behind it was that maybe xG could provide extra signal and I found that it is e..."
+    } ,
+  
+    {
+      "title"    : "Over dispersion in football",
+      "title-lower"    : "over dispersion in football",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "FootballBetting",
+      "tags"     : "",
+      "url"      : "/football/betting/2025/11/22/over-under-markets-discrepancy.html",
+      "date"     : "2025-11-22 00:00:00 +0700",
+      "content"     : "I had recently saw a post from @Gingfacekillah on X where he suggested to look at the over/under markets just like a stock option with strike price (the line). I was not sure how or why but with th..."
+    } ,
+  
+    {
+      "title"    : "Goals per possession",
+      "title-lower"    : "goals per possession",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "FootballEPLLaligaPossessionBetting",
+      "tags"     : "",
+      "url"      : "/football/epl/laliga/possession/betting/2023/05/15/goals-per-possession.html",
+      "date"     : "2023-05-15 00:00:00 +0700",
+      "content"     : "For a long time, I had a thesis I wanted to test. My thesis was that some teams can convert little possession into goals much better, hence those teams will be underestimated against some better op..."
+    } ,
+  
+    {
+      "title"    : "Cointegration continued and deming regression",
+      "title-lower"    : "cointegration continued and deming regression",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "TradingCryptoCointegrationDemingRegression",
+      "tags"     : "",
+      "url"      : "/trading/crypto/cointegration/deming/regression/2023/02/11/cointegration-test-2.html",
+      "date"     : "2023-02-11 00:00:00 +0700",
+      "content"     : "I came across this tweet of Ernest Chan where he advised to use deming regression instead of OLS to find the best regression line when measuring cointegration. OLS assumes no noise for the predicto..."
+    } ,
+  
+    {
+      "title"    : "Using cointegration to measure the co-movement of assets (Part 1)",
+      "title-lower"    : "using cointegration to measure the co-movement of assets (part 1)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "TradingCryptoCointegration",
+      "tags"     : "",
+      "url"      : "/trading/crypto/cointegration/2023/02/08/cointegration-test.html",
+      "date"     : "2023-02-08 00:00:00 +0700",
+      "content"     : "I came across this tweet from some anon on twitter directing to this paper of Daniel P. Palomar from Hong Kong university. To reiterate from the paper, he suggests testing for cointegration instead..."
     } ,
   
     {
@@ -20,7 +80,7 @@
       "categories" : "world cupbettingfootball",
       "tags"     : "",
       "url"      : "/world%20cup/betting/football/2023/01/13/betting-on-the-world-cup.html",
-      "date"     : "2023-01-13 00:00:00 +0200",
+      "date"     : "2023-01-13 00:00:00 +0700",
       "content"     : "I have always been fascinated with sports betting and professional bettors. I have tried several times in the past to do it professionally, either in quantitative or qualitative ways. I guess it is..."
     } ,
   
@@ -32,7 +92,7 @@
       "categories" : "EPLDeep-Learningfootball",
       "tags"     : "",
       "url"      : "/epl/deep-learning/football/2020/10/18/fifa-game-rankings-to-predict-epl.html",
-      "date"     : "2020-10-18 00:00:00 +0300",
+      "date"     : "2020-10-18 00:00:00 +0700",
       "content"     : "In this post I will check if a neural network trained using FIFA team rankings could produce valuable predictions of football matches.I actually did this quite a while ago. I just wanted to make mo..."
     } ,
   
@@ -44,7 +104,7 @@
       "categories" : "EPLfootballGLM",
       "tags"     : "",
       "url"      : "/epl/football/glm/2020/10/10/goals-scoring-and-resting-days.html",
-      "date"     : "2020-10-10 00:00:00 +0300",
+      "date"     : "2020-10-10 00:00:00 +0700",
       "content"     : "I wanted to see if there is any relationship between the days of rest (or not actually rest, but days since last match) to the amount of goals a team will score in a game.I used the data from footb..."
     } ,
   
@@ -56,7 +116,7 @@
       "categories" : "messifootballlaligapoissonregressionbayesianpymc",
       "tags"     : "",
       "url"      : "/messi/football/laliga/poisson/regression/bayesian/pymc/2020/10/05/messi-zip-poisson-model.html",
-      "date"     : "2020-10-05 00:00:00 +0300",
+      "date"     : "2020-10-05 00:00:00 +0700",
       "content"     : "My previous post was about a zero inflated poisson process where an observation of zero counts may be possible due to two different processes. After understanding (hopefully) the idea behind ZIP (z..."
     } ,
   
@@ -68,7 +128,7 @@
       "categories" : "pymcpoissonregressionbayesian",
       "tags"     : "",
       "url"      : "/pymc/poisson/regression/bayesian/2020/09/30/zero-inflated-poisson.html",
-      "date"     : "2020-09-30 00:00:00 +0300",
+      "date"     : "2020-09-30 00:00:00 +0700",
       "content"     : "I think the best way to explain the idea behind the zero inflated poisson is with an example. As the name suggests, it is a model in which the observed data suggests that an observations with zero ..."
     } ,
   
@@ -80,7 +140,7 @@
       "categories" : "bayesiananalysisfootballstatisticshierarchicalR",
       "tags"     : "",
       "url"      : "/bayesian/analysis/football/statistics/hierarchical/r/2020/09/15/bayesian-football-model.html",
-      "date"     : "2020-09-15 00:00:00 +0300",
+      "date"     : "2020-09-15 00:00:00 +0700",
       "content"     : "The twelve chapter of Statistical Rethinking by Richard Mclearth is about multilevel (or hierarchical) model. The multilevel models are sort of a compromise between independent and dependent cluste..."
     } ,
   
@@ -92,7 +152,7 @@
       "categories" : "casinoroulettebetting2-1-2manhattanstrategy",
       "tags"     : "",
       "url"      : "/casino/roulette/betting/2-1-2/manhattan/strategy/2020/08/29/manhattan-2-1-2-betting-strategy.html",
-      "date"     : "2020-08-29 00:00:00 +0300",
+      "date"     : "2020-08-29 00:00:00 +0700",
       "content"     : "I’m going to explore an interesting strategy suggested by Aaron Brown on one of his quora posts.At the end of the day any game in the casino is negative EV game (from the bettor side) but there is ..."
     } ,
   
@@ -104,7 +164,7 @@
       "categories" : "StatisticsPythonMCMC",
       "tags"     : "",
       "url"      : "/statistics/python/mcmc/2020/08/27/metropolis-hasting-mcmc-algorithm.html",
-      "date"     : "2020-08-27 00:00:00 +0300",
+      "date"     : "2020-08-27 00:00:00 +0700",
       "content"     : "MCMC sampling method allow to sample directly from the posterior without the need to know its shape or any other properties. Remember that the definition:\[P( \theta \ | \ data) = \frac{P(data \ | ..."
     } ,
   
@@ -116,7 +176,7 @@
       "categories" : "footballReal-MadridBarcelona",
       "tags"     : "",
       "url"      : "/football/real-madrid/barcelona/2020/07/29/how-good-is-real-madrid.html",
-      "date"     : "2020-07-29 00:00:00 +0300",
+      "date"     : "2020-07-29 00:00:00 +0700",
       "content"     : "This season (2019-20) started well for Barcelona and not so well for Real Madrid. The corona forces the league to a halt at March 20 and the league returned only in June (or July?). From there thin..."
     } ,
   
@@ -128,7 +188,7 @@
       "categories" : "Rgammaprobability",
       "tags"     : "",
       "url"      : "/r/gamma/probability/2020/05/01/gamma-distribution-r.html",
-      "date"     : "2020-05-01 00:00:00 +0300",
+      "date"     : "2020-05-01 00:00:00 +0700",
       "content"     : "Since I get confused a lot when trying to use the gamma function in R and I tend to forget its properties so I wrote this simple reminder. The Gamma distribution is used to predict what is the prob..."
     } 
   
