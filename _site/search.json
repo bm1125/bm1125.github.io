@@ -7,9 +7,21 @@
       "sub-titile-lower" : "",
       "categories" : "",
       "tags"     : "",
-      "url"      : "/2025/12/01/2020-10-19-SVM-for-predicting-football.html",
-      "date"     : "2025-12-01 22:01:24 +0700",
+      "url"      : "/2025/12/05/2020-10-19-SVM-for-predicting-football.html",
+      "date"     : "2025-12-05 19:40:29 +0700",
       "content"     : "One thing Nassim Taleb keeps repeating on is the importance of understanding the properties of a variable before everything else. I kinda agree. I think we too often dwelve into complicated statist..."
+    } ,
+  
+    {
+      "title"    : "Trying to tweak the strategy",
+      "title-lower"    : "trying to tweak the strategy",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "FootballBetting",
+      "tags"     : "",
+      "url"      : "/football/betting/2025/12/02/reverse-engineering-parameters.html",
+      "date"     : "2025-12-02 00:00:00 +0700",
+      "content"     : "Moving on from the failure in the previous post, where I tried to find edge in the over/under markets using the correct score market under the assumption that bias between these two markets are inh..."
     } ,
   
     {
@@ -19,7 +31,7 @@
       "sub-titile-lower" : "",
       "categories" : "European FootballSoccerBetting",
       "tags"     : "",
-      "url"      : "/european%20football/soccer/betting/2025/11/29/over-under-market-startegy.html",
+      "url"      : "/european%20football/soccer/betting/2025/11/29/over-under-market-strategy.html",
       "date"     : "2025-11-29 00:00:00 +0700",
       "content"     : "Previously I had worked on two different models trying to predict football 1X2 results. In the first model, the idea behind it was that maybe xG could provide extra signal and I found that it is ea..."
     } ,
@@ -33,7 +45,7 @@
       "tags"     : "",
       "url"      : "/football/betting/2025/11/22/over-under-markets-discrepancy.html",
       "date"     : "2025-11-22 00:00:00 +0700",
-      "content"     : "I had recently saw a post from @Gingfacekillah on X where he suggested to look at the over/under markets just like a stock option with strike price (the line). I was not sure how or why but with th..."
+      "content"     : "I had saw a post of @Gingfacekillah on X where he suggested to look at the over/under markets just like a stock option with a strike price (the line). I was not sure how or why but with the help of..."
     } ,
   
     {

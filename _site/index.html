@@ -68,16 +68,26 @@
         <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
       </div>
       
-    </li><li><a class="post-link" href="/2025/12/01/2020-10-19-SVM-for-predicting-football.html">
+    </li><li><a class="post-link" href="/2025/12/05/2020-10-19-SVM-for-predicting-football.html">
           <h2 class="post-title"></h2>
         </a>
         <div class="post-meta">
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Dec 1, 2025
+            Dec 5, 2025
           </div></div>
         <div class="post"></div>
-      </li><li><a class="post-link" href="/european%20football/soccer/betting/2025/11/29/over-under-market-startegy.html">
+      </li><li><a class="post-link" href="/football/betting/2025/12/02/reverse-engineering-parameters.html">
+          <h2 class="post-title">Trying to tweak the strategy</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Dec 2, 2025
+          </div><ul class="post-categories"><li>Football</li><li>Betting</li></ul></div>
+        <div class="post"><p>Moving on from the failure in the previous post, where I tried to find edge in the over/under markets using the correct score market under the assumption that bias between these two markets are inherently different, one directionally and one spread around different results. In this post I will try to tweak this idea a little where instead of using correct score I will use total team goals.</p>
+</div>
+      </li><li><a class="post-link" href="/european%20football/soccer/betting/2025/11/29/over-under-market-strategy.html">
           <h2 class="post-title">Trying use over dispersion for betting strategy</h2>
         </a>
         <div class="post-meta">
@@ -85,7 +95,7 @@
             <i class="icon-calendar"></i>
             Nov 29, 2025
           </div><ul class="post-categories"><li>European Football</li><li>Soccer</li><li>Betting</li></ul></div>
-        <div class="post"><p>Previously I had worked on two different models trying to predict football 1X2 results. In the first model, the idea behind it was that maybe xG could provide extra signal and I found that it is easier to predict xG than goals. I had many iterations over, starting out with just a glm that also takes in xG prediction, then moved to predict directly goals difference using OLS instead of goals scoring, later on i picked multinomial logistic model when I understood that maybe SSE is not the right choice for loss function of a model and then due to model going crazy often, applied regularization (ridge regression). The other model was simpler, an ELO model where the actual score for each match was computed using 0,1,3 instead of 0,0.5,1 and for the expected score I used 1X2 closing line instead of the model predictions, \(\ 1/odds_{win} * 3 + 1/odds_{draw} * 1\). I did any mistake possible, worked a lot with gpt and gemini, discorvered that both made up a lot of numbers when I asked them to run backtest. I think my most important take from this endeavor is that overall model accuracy matter less than finding true signal.</p>
+        <div class="post"><p>Previously I had worked on two different models trying to predict football 1X2 results. In the first model, the idea behind it was that maybe xG could provide extra signal and I found that it is easier to predict xG than goals. I had many iterations over, starting out with just a glm that also takes in xG prediction, then moved to predict directly goals difference using OLS instead of goals scoring, later on i picked multinomial logistic model when I understood that maybe SSE is not the right choice for loss function of a model and then due to model going crazy often, applied regularization (ridge regression). The other model was simpler, an ELO model where the actual score for each match was computed using 0,1,3 instead of 0,0.5,1 and for the expected score I used 1X2 closing line instead of the model predictions, \(\ 1/odds_{win} * 3 + 1/odds_{draw} * 1\). I made every mistake possible, worked a lot with gpt and gemini, discovered that both made up a lot of numbers when I asked them to run backtest. I think my most important take from this endeavor is that overall model accuracy matter less than finding true signal.</p>
 </div>
       </li><li><a class="post-link" href="/football/betting/2025/11/22/over-under-markets-discrepancy.html">
           <h2 class="post-title">Over dispersion in football</h2>
@@ -95,7 +105,7 @@
             <i class="icon-calendar"></i>
             Nov 22, 2025
           </div><ul class="post-categories"><li>Football</li><li>Betting</li></ul></div>
-        <div class="post"><p>I had recently saw a post from <a href="https://x.com/Gingfacekillah">@Gingfacekillah</a> on X where he suggested to look at the over/under markets just like a stock option with strike price (the line). I was not sure how or why but with the help of ChatGPT I decided to look into it, specifically european football market.</p>
+        <div class="post"><p>I had saw a post of <a href="https://x.com/Gingfacekillah">@Gingfacekillah</a> on X where he suggested to look at the over/under markets just like a stock option with a strike price (the line). I was not sure how or why but with the help of ChatGPT I decided to look into it, specifically in european football market.</p>
 </div>
       </li><li><a class="post-link" href="/football/epl/laliga/possession/betting/2023/05/15/goals-per-possession.html">
           <h2 class="post-title">Goals per possession</h2>
