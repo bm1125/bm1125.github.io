@@ -68,24 +68,34 @@
         <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
       </div>
       
-    </li><li><a class="post-link" href="/2025/12/05/2020-10-19-SVM-for-predicting-football.html">
+    </li><li><a class="post-link" href="/2025/12/06/2020-10-19-SVM-for-predicting-football.html">
           <h2 class="post-title"></h2>
         </a>
         <div class="post-meta">
           <div class="post-date">
             <i class="icon-calendar"></i>
-            Dec 5, 2025
+            Dec 6, 2025
           </div></div>
         <div class="post"></div>
+      </li><li><a class="post-link" href="/football/betting/bookmaker/2025/12/06/bookmaker-model.html">
+          <h2 class="post-title">The bookmaker model - conclusions</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Dec 6, 2025
+          </div><ul class="post-categories"><li>Football</li><li>Betting</li><li>Bookmaker</li></ul></div>
+        <div class="post"><p>In my previous post I explained how I tried to estimate each team goal scoring parameter using the team total goals odds. I assumed each team goals come from a negative binomial distribution with some \(\ \lambda, k\) where k is a dispersion parameter. I then estimated a correlation parameter, \(\ \rho\) which adjust the probabilities for draws and 1-0, 0-1. With the help of ChatGPT / Gemini, I have used this approach to follow several matches, by estimating parameters first and then tracking the odds movement. In this post I will explain why this approach can not be used to find edge in the main markets of 1X2, AH, Over/Under.</p>
+</div>
       </li><li><a class="post-link" href="/football/betting/2025/12/02/reverse-engineering-parameters.html">
-          <h2 class="post-title">Trying to tweak the strategy</h2>
+          <h2 class="post-title">Reverse engineering match odds from team totals</h2>
         </a>
         <div class="post-meta">
           <div class="post-date">
             <i class="icon-calendar"></i>
             Dec 2, 2025
           </div><ul class="post-categories"><li>Football</li><li>Betting</li></ul></div>
-        <div class="post"><p>Moving on from the failure in the previous post, where I tried to find edge in the over/under markets using the correct score market under the assumption that bias between these two markets are inherently different, one directionally and one spread around different results. In this post I will try to tweak this idea a little where instead of using correct score I will use total team goals.</p>
+        <div class="post"><p>This post moves on from the failure in the previous post, where I tried to find an edge in the over/under markets using the correct score market under the assumption that bias between these two markets is inherently different, one directionally and one spread around different results. In this post I will try to tweak this idea a little where instead of using correct score I will use total team goals market to test whether it contains any useful signal to use in a main market.</p>
 </div>
       </li><li><a class="post-link" href="/european%20football/soccer/betting/2025/11/29/over-under-market-strategy.html">
           <h2 class="post-title">Trying use over dispersion for betting strategy</h2>
