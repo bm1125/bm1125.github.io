@@ -7,9 +7,21 @@
       "sub-titile-lower" : "",
       "categories" : "",
       "tags"     : "",
-      "url"      : "/2025/12/06/2020-10-19-SVM-for-predicting-football.html",
-      "date"     : "2025-12-06 18:36:47 +0700",
+      "url"      : "/2026/04/27/2020-10-19-SVM-for-predicting-football.html",
+      "date"     : "2026-04-27 23:03:50 +0700",
       "content"     : "One thing Nassim Taleb keeps repeating on is the importance of understanding the properties of a variable before everything else. I kinda agree. I think we too often dwelve into complicated statist..."
+    } ,
+  
+    {
+      "title"    : "Top down approach that may work",
+      "title-lower"    : "top down approach that may work",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "FootballBettingSport",
+      "tags"     : "",
+      "url"      : "/football/betting/sport/2026/04/27/top-down-approach-betting.html",
+      "date"     : "2026-04-27 00:00:00 +0700",
+      "content"     : "I have spent some time trying a alert service for pinnacle odds. The idea is that once odds dropped on pinnacle (and assuming after limits have been raised and we are close enough to kick off so no..."
     } ,
   
     {
@@ -21,7 +33,7 @@
       "tags"     : "",
       "url"      : "/football/betting/bookmaker/2025/12/06/bookmaker-model.html",
       "date"     : "2025-12-06 00:00:00 +0700",
-      "content"     : "In my previous post I explained how I tried to estimate each team goal scoring parameter using the team total goals odds. I assumed each team goals come from a negative binomial distribution with s..."
+      "content"     : "In my previous post, I explained how I tried to estimate each team’s goal-scoring parameter using the team total goals odds. I assumed that goals for each team come from a negative binomial distrib..."
     } ,
   
     {
